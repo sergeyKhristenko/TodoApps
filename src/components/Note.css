@@ -1,0 +1,42 @@
+.noteItem {
+  padding: 6px;
+  position: relative;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  display: inline-block;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);  
+}
+
+.noteText {
+  border-top: 1px solid rgba(128, 21, 21, 0.8);
+  padding-top: 10px;
+}
+
+.noteTitle {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.deleteNote {
+  display: none;
+  font-family: monospace;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  top: 3px;
+  right: 0;
+}
+
+.deleteNote:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.noteItem:hover .deleteNote {
+  display: inline-block;
+}

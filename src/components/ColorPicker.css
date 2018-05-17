@@ -1,0 +1,13 @@
+.NotesEditor__footer .colorPicker {
+  display: flex;
+}
+
+.NotesEditor__footer .color {
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 10px;
+}
