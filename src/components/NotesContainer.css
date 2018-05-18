@@ -1,6 +1,3 @@
 .notesContainer {
-  margin: 0 auto;
-  width: 800px;
-  column-width: 180px;
-  column-gap: 10px;
+  margin: 20px auto;
 }

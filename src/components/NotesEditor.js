@@ -11,7 +11,7 @@ export default class NotesEditor extends Component {
     this.state = {
       title: '',
       text: '',
-      color: '#FFFFFF'
+      color: '#ffffff'
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -47,9 +47,10 @@ export default class NotesEditor extends Component {
 
   render() {
     return (
-      <div className="NotesEditor">
+      <div className="NotesEditor" style={{backgroundColor: this.state.color}}>
         <input
           className="noteTitleInput"
+          style={{backgroundColor: this.state.color}}
           type="text"
           onChange={this.handleTitleChange}
           value={this.state.title}
@@ -58,6 +59,7 @@ export default class NotesEditor extends Component {
         />
         <textarea
           className="noteTextInput"
+          style={{backgroundColor: this.state.color}}
           rows="8"
           placeholder="Add text"
           onChange={this.handleTextChange}
@@ -65,7 +67,7 @@ export default class NotesEditor extends Component {
         />
 
         <div className="NotesEditor__footer">
-          <ColorPicker onColorChange={this.handleColorChange}/>
+          <ColorPicker onColorChange={this.handleColorChange} color={this.state.color}/>
           <button className="addNoteBtn" onClick={this.addNewTodo}>
             Add
           </button>

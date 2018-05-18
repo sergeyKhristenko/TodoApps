@@ -1,12 +1,8 @@
 .noteItem {
   padding: 6px;
-  position: relative;
   border-radius: 5px;
-  background-color: #ffffff;
-  margin-top: 10px;
-  margin-bottom: 3px;
-  display: inline-block;
-  width: 100%;
+  margin-bottom: 10px;
+  width: 250px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);  
 }
 
@@ -21,15 +17,15 @@
 }
 
 .deleteNote {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: none;
-  font-family: monospace;
+  line-height: 2;
   width: 20px;
   height: 20px;
   text-align: center;
   font-size: 10px;
-  position: absolute;
-  top: 3px;
-  right: 0;
 }
 
 .deleteNote:hover {
