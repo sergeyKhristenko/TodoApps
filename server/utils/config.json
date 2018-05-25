@@ -2,8 +2,9 @@
   "apiPrefix": "http://localhost:8080",
   "serverPort": "8080",
   "db": {
-    "name": "notes",
-    "host": "localhost",
+    "name": "mongodb-3-servers-vm-0",
+    "host": "10.156.0.3",
     "port": 27017
   }
 }
+

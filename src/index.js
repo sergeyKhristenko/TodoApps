@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-
 import './index.css';
 import App from './App';
-import NotesEditor from './components/NotesEditor'
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

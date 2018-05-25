@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as api from './api/index';
 
-import NotesEditor from './components/NotesEditor.js';
+import NotesEditor from './components/NotesEditor/NotesEditor.js';
 import NotesContainer from './components/NotesContainer.js';
 
 class App extends Component {

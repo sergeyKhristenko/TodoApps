@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './NotesEditor.css';
 
-import ColorPicker from './ColorPicker';
-import * as api from '../api/index.js';
+import ColorPicker from '../ColorPicker';
+import * as api from '../../api/index.js';
 
 export default class NotesEditor extends Component {
   constructor(props) {

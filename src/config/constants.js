@@ -1,7 +1,7 @@
 const constants = {
-  host: 'localhost',
+  host: 'https://upbeat-medley-204814.appspot.com',
   port: '8080',
-  apiPrefix: `http://localhost:8080`
+  apiPrefix: `https://upbeat-medley-204814.appspot.com`
 };
 
 export default constants;
