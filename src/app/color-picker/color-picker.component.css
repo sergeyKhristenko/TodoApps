@@ -1,7 +1,7 @@
 .colorPicker-container {
   width: 100%;
   display: flex;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 
 .color {

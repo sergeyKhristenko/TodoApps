@@ -10,8 +10,13 @@ export class NotesEditorComponent implements OnInit {
     id: 1,
     name: 'Windstorm'
   };
+  color = '#ffffff';
 
   constructor() { }
+
+  onColorChange(event) {
+    this.color = event;
+  }
 
   ngOnInit() {
   }

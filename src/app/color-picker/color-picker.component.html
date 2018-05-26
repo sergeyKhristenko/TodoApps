@@ -1,5 +1,6 @@
 <div class="colorPicker-container">
-    <div class="color selected"></div>
-    <div class="color"></div>
-    <div class="color"></div>
+    <div *ngFor="let color of COLORS, let i = index" class="color" 
+    [class.selected]="selected === i" 
+    [style.backgroundColor]="color" 
+    (click)="changeColor(i)"></div>
 </div>
