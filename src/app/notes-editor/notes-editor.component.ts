@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
+import { ColorPickerComponent } from '../color-picker/color-picker.component';
+import { Note } from '../note';
+import { NoteService } from '../note.service';
 
 @Component({
   selector: 'app-notes-editor',
@@ -6,19 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notes-editor.component.css']
 })
 export class NotesEditorComponent implements OnInit {
-  hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
-  color = '#ffffff';
+  private DEFAULT_COLOR = '#ffffff';
+  private color = this.DEFAULT_COLOR;
+  private noteTitle = '';
+  private noteText = '';
 
-  constructor() { }
+  @ViewChild(ColorPickerComponent) private colorPickerComponent: ColorPickerComponent;
 
-  onColorChange(event) {
-    this.color = event;
-  }
+  constructor(private noteService: NoteService) {}
 
   ngOnInit() {
+    this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
   }
 
+  addNewTodo() {
+    const note: Note = { title: this.noteTitle, text: this.noteText, color: this.color };
+
+    this.color = this.DEFAULT_COLOR;
+    this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
+    this.noteText = '';
+    this.noteTitle = '';
+  }
+
+  onColorChange(color) {
+    this.color = color;
+  }
 }
