@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { Note } from '../note';
 import { NoteService } from '../note.service';
@@ -9,11 +9,11 @@ import { NoteService } from '../note.service';
   styleUrls: ['./notes-editor.component.css']
 })
 export class NotesEditorComponent implements OnInit {
-  private DEFAULT_COLOR = '#ffffff';
-  private color = this.DEFAULT_COLOR;
-  private noteTitle = '';
-  private noteText = '';
-
+  DEFAULT_COLOR = '#ffffff';
+  noteTitle = '';
+  noteText = '';
+  color = this.DEFAULT_COLOR;
+  
   @ViewChild(ColorPickerComponent) private colorPickerComponent: ColorPickerComponent;
 
   constructor(private noteService: NoteService) {}
@@ -23,7 +23,12 @@ export class NotesEditorComponent implements OnInit {
   }
 
   addNewTodo() {
+    if(!this.noteText || !this.noteTitle) {
+      return
+    }
+
     const note: Note = { title: this.noteTitle, text: this.noteText, color: this.color };
+    this.noteService.createNote(note).subscribe();
 
     this.color = this.DEFAULT_COLOR;
     this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;

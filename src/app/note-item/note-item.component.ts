@@ -15,6 +15,6 @@ export class NoteItemComponent implements OnInit {
   ngOnInit() {}
 
   deleteNote(note) {
-    this.noteServie.deleteNote(note).subscribe(data => console.log(data));
+    this.noteServie.deleteNote(note).subscribe();
   }
 }
