@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Note } from '../note';
 import { NoteService } from '../note.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store';
+import { actionTypes } from '../store/actions';
 
 @Component({
   selector: 'app-note-item',
@@ -10,11 +13,11 @@ import { NoteService } from '../note.service';
 export class NoteItemComponent implements OnInit {
   @Input() note: Note;
 
-  constructor(private noteServie: NoteService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {}
 
   deleteNote(note) {
-    this.noteServie.deleteNote(note).subscribe();
+    this.store.dispatch(new actionTypes.DeleteNote(note));
   }
 }

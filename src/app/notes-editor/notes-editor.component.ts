@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { Note } from '../note';
 import { NoteService } from '../note.service';
+import { Store } from '@ngrx/store';
+import * as fromActions from '../store/actions/notes.action';
+
+import { AppState } from '../store';
 
 @Component({
   selector: 'app-notes-editor',
@@ -16,7 +20,7 @@ export class NotesEditorComponent implements OnInit {
   
   @ViewChild(ColorPickerComponent) private colorPickerComponent: ColorPickerComponent;
 
-  constructor(private noteService: NoteService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
@@ -28,7 +32,7 @@ export class NotesEditorComponent implements OnInit {
     }
 
     const note: Note = { title: this.noteTitle, text: this.noteText, color: this.color };
-    this.noteService.createNote(note).subscribe();
+    this.store.dispatch(new fromActions.CreateNote(note));
 
     this.color = this.DEFAULT_COLOR;
     this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
