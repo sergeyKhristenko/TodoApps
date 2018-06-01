@@ -18,7 +18,7 @@ export function getInitialState() {
 }
 
 export function reducer(state = initialState, action: fromNotesActions.NotesActions) {
-  
+  // remove this comment
   switch (action.type) {
     // Load notes
     case fromNotesActions.LOAD_NOTES: {
