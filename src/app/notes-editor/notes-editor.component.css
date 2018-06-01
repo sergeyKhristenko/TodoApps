@@ -1,0 +1,76 @@
+.textEditor--container {
+  max-width: 500px;
+  min-width: 300px;
+  margin: auto;
+  padding: 5px;
+  background-color: #ffffff;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+}
+
+.titleInput {
+  font-style: italic;
+  color: #5d5b5b;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  display: block;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.title-error {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+
+.textInput {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #5d5b5b;
+  padding: 10px;
+  width: 100%;
+  display: block;
+  resize: none;
+  outline: none;
+  border: none;
+  border-top: 1px solid rgba(128, 21, 21, 0.8);
+  background-color: transparent;
+}
+
+.noteEditor--footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
+
+.addBtn {
+  margin: 10px;
+  padding: 10px 50px;
+  border-radius: 25px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #40b3a2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.addBtn:focus {
+  outline: none;
+}
+
+.addBtn:active {
+  outline: none;
+}
+
+.addBtn:active {
+  transform: scale(0.98);
+}

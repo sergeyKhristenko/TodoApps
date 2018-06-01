@@ -1,0 +1,11 @@
+<div>
+  <div class="textEditor--container" [style.backgroundColor] = "color">
+    <input type="text" class="titleInput" placeholder="Enter title" [(ngModel)]="noteTitle">
+    <textarea class="textInput" cols="30" rows="10" [(ngModel)]="noteText" placeholder="Enter text"></textarea>
+
+    <div class="noteEditor--footer">
+      <app-color-picker (colorChange)="onColorChange($event)"></app-color-picker>
+      <button class="addBtn" (click)="addNewTodo()">ADD</button>
+    </div>
+  </div>
+</div>

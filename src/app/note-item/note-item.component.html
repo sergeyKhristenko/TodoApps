@@ -1,0 +1,5 @@
+<div class="item" [style.backgroundColor]="note.color">
+  <span class="deleteNote" (click)="deleteNote(note)">&#10006;</span>
+  <div class="item-title">{{note.title}}</div>
+  <div class="item-text">{{note.text}}</div>
+</div>

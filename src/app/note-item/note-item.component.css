@@ -1,0 +1,38 @@
+.item {
+  border-radius: 3px;
+  width: 200px;
+  position: relative;
+  margin: 20px;
+  margin-bottom: 0;
+  padding: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.24)
+}
+
+.item:hover .deleteNote {
+  display: block;
+}
+
+.item-text {
+  border-top: 1px solid rgba(128,21,21,.8);
+  padding-top: 5px;
+}
+
+.deleteNote {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: red;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 1.5;
+  outline: none;
+}
+
+.deleteNote:active {
+  color: black
+}
