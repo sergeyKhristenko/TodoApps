@@ -1,17 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {MockComponent} from 'ng-mocks';
 
 import { NotesEditorComponent } from './notes-editor.component';
+import { StoreModule, Store } from '@ngrx/store';
 
-describe('NotesEditorComponent', () => {
+import {reducers, AppState} from '../store/reducers';
+
+fdescribe('NotesEditorComponent', () => {
   let component: NotesEditorComponent;
   let fixture: ComponentFixture<NotesEditorComponent>;
+  let store: Store<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotesEditorComponent ]
+      declarations: [ NotesEditorComponent, MockComponent() ],
+      imports: [StoreModule.forRoot(reducers)]
     })
-    .compileComponents();
-  }));
+
+    store = TestBed.get(Store);
+
+    spyOn(store, 'dispatch').and.stub();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NotesEditorComponent);
