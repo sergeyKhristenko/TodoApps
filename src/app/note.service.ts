@@ -9,41 +9,20 @@ import { Note } from './note';
 })
 export class NoteService {
   constructor(private http: HttpClient) {}
-  private notesUrl = 'https://upbeat-medley-204814.appspot.com';
-  private httpOptions = {
+  readonly apiURL = 'https://upbeat-medley-204814.appspot.com';
+  readonly httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  notes = new BehaviorSubject<Note[]>([]);
-
   getNotes(): Observable<any> {
-    return this.http.get<Note[]>(`${this.notesUrl}/notes`)
-    .pipe(
-      tap(notes => this.notes.next(notes))
-    );
+    return this.http.get<Note[]>(`${this.apiURL}/notes`);
   }
 
-  createNote(note: Note) {
-    let _notes = this.notes.getValue();
-
-    return this.http.post<Note>(`${this.notesUrl}/notes`, note, this.httpOptions)
-    .pipe(
-      tap(note => _notes.push(note) && this.notes.next(_notes)),
-      catchError(() => {
-        throw `Error creating note: ${JSON.stringify(note)}`;
-      })
-    );
+  createNote(note: Note): Observable<any> {
+    return this.http.post<Note>(`${this.apiURL}/notes`, note, this.httpOptions);
   }
 
-  deleteNote(note) {
-    const _notes = this.notes.getValue();
-
-    return this.http.delete(`${this.notesUrl}/notes/${note._id}`)
-    .pipe(
-      tap(() => this.notes.next(_notes.filter(_note => _note !== note))),
-      catchError(() => {
-        throw `Error deleting note: ${JSON.stringify(note)}`;
-      })
-    );
+  deleteNote(note): Observable<any> {
+    return this.http.delete(`${this.apiURL}/notes/${note._id}`);
   }
 }

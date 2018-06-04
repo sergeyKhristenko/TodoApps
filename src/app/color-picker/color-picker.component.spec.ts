@@ -19,7 +19,13 @@ describe('ColorPickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('changecolor', () => {
+    const testColor = '#000000';
+    component.colorChange.subscribe(color => {
+      expect(color).toEqual(testColor);
+    });
+
+    component.selectedColor = '#ffffff';
+    component.changeColor(testColor);
   });
 });

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { Note } from '../note';
 import { NoteService } from '../note.service';
@@ -12,19 +12,15 @@ import { AppState } from '../store';
   templateUrl: './notes-editor.component.html',
   styleUrls: ['./notes-editor.component.css']
 })
-export class NotesEditorComponent implements OnInit {
+export class NotesEditorComponent{
   DEFAULT_COLOR = '#ffffff';
+  DEFAULT_TEXT = '';
+  DEFAULT_TITLE = '';
   noteTitle = '';
   noteText = '';
   color = this.DEFAULT_COLOR;
-  
-  @ViewChild(ColorPickerComponent) private colorPickerComponent: ColorPickerComponent;
 
   constructor(private store: Store<AppState>) {}
-
-  ngOnInit() {
-    this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
-  }
 
   addNewTodo() {
     if(!this.noteText || !this.noteTitle) {
@@ -35,9 +31,8 @@ export class NotesEditorComponent implements OnInit {
     this.store.dispatch(new fromActions.CreateNote(note));
 
     this.color = this.DEFAULT_COLOR;
-    this.colorPickerComponent.selectedColor = this.DEFAULT_COLOR;
-    this.noteText = '';
-    this.noteTitle = '';
+    this.noteText = this.DEFAULT_TEXT;
+    this.noteTitle = this.DEFAULT_TITLE;
   }
 
   onColorChange(color) {
