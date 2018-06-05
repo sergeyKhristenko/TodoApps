@@ -52,7 +52,7 @@ export class CreateNoteFail implements Action {
 export class CreateNoteSuccess implements Action {
   readonly type = CREATE_NOTE_SUCCESS;
 
-  constructor(public payload: any) {
+  constructor(public payload: Note) {
     this.payload = payload;
   }
 }

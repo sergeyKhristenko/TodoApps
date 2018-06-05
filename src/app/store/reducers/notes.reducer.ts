@@ -53,7 +53,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
     case fromNotesActions.CREATE_NOTE_SUCCESS: {
       return {
         ...state,
-        data: [...state.data, ...action.payload],
+        data: [...state.data, action.payload],
         loading: false,
         loaded: true
       };
