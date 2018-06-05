@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Note } from './note';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
   constructor(private http: HttpClient) {}
-  readonly apiURL = 'https://upbeat-medley-204814.appspot.com';
+  readonly apiURL = environment.apiURL;
   readonly httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
