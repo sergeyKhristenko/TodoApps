@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import * as fromStore from '../store';
 import * as fromActions from '../store/actions/notes.action';
-import { Note } from '../note';
+import { Note } from '../models';
 import { AppState } from '../store';
 
 @Component({

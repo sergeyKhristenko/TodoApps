@@ -1,4 +1,4 @@
-import { Note } from '../../note';
+import { Note } from '../../models';
 import * as fromNotesActions from '../actions/notes.action';
 
 export interface NotesState {

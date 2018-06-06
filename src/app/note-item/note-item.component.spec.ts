@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoteItemComponent } from './note-item.component';
 import { StoreModule, Store } from '@ngrx/store';
 import { reducers, AppState } from '../store';
-import { Note } from '../note';
+import { Note } from '../models';
 import { actionTypes } from '../store/actions';
 import { By } from '@angular/platform-browser';
 

@@ -1,6 +1,6 @@
 import * as fromReducers from './notes.reducer';
 import * as fromActions from '../actions/notes.action';
-import { Note } from '../../note';
+import { Note } from '../../models';
 
 describe('Notes Reducers tests', () => {
   it('return initial state', () => {

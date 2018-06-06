@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { NgModule, Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { actionTypes } from '../store/actions';
 
 import { NotesEditorComponent } from './notes-editor.component';
@@ -9,7 +10,7 @@ import { StoreModule, Store } from '@ngrx/store';
 
 import { reducers, AppState } from '../store/reducers';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
-import { Note } from '../note';
+import { Note } from '../models';
 
 describe('NotesEditorComponent', () => {
   let component: NotesEditorComponent;
@@ -23,7 +24,7 @@ describe('NotesEditorComponent', () => {
         NotesEditorComponent,
         MockComponent({ selector: 'app-color-picker', inputs: ['selectedColor'], outputs: ['colorChange'] })
       ],
-      imports: [StoreModule.forRoot(reducers), FormsModule]
+      imports: [StoreModule.forRoot(reducers), FormsModule, RouterTestingModule]
     });
 
     fixture = TestBed.createComponent(NotesEditorComponent);

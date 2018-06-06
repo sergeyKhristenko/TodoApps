@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
-import { Note } from '../note';
+import { Note } from '../models';
 import { NoteService } from '../note.service';
 import { Store } from '@ngrx/store';
 import * as fromActions from '../store/actions/notes.action';

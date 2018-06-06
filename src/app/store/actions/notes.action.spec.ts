@@ -1,5 +1,5 @@
 import { actionTypes } from '.';
-import { Note } from '../../note';
+import { Note } from '../../models';
 
 describe('Notes actions tests', () => {
   it('LoadNotes', () => {

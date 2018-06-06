@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Note } from '../note';
+import { Note } from '../models';
 import { NoteService } from '../note.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store';

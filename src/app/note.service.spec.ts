@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { NoteService } from './note.service';
 import { HttpClient } from '@angular/common/http';
-import { Note } from './note';
+import { Note } from './models';
 
 describe('NoteService', () => {
   let httpClient: HttpClient;

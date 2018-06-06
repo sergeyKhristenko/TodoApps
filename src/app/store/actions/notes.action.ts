@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Note } from '../../note';
+import { Note } from '../../models';
 
 export const LOAD_NOTES = 'Load notes';
 export const LOAD_NOTES_FAIL = 'Load notes fail';
