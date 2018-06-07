@@ -12,7 +12,7 @@ body {
   padding: 20px;
   padding-bottom: 10px;
   border-radius: 5px;
-  box-shadow: 2px 2px 7px #222826
+  box-shadow: 0px 2px 13px #222826
 }
 
 .tab {
@@ -39,8 +39,8 @@ body {
   margin-top: 18px;
   border: 1px solid #e5ddd0;
   background: #fff9eb;
-  padding: 8px;
   border-radius: 5px;
+  padding: 8px;  
   box-shadow: 0px 0px 7px #e4ded0 inset
 }
 
@@ -51,9 +51,13 @@ input {
   display: inline-block;
   opacity: 0.7;
   outline: none;
-  border: none;
+  border: 1px solid transparent;
   padding: 8px;
   margin-bottom: 0;
+}
+
+input.error {
+  border-bottom: 1px solid red
 }
 
 input:nth-child(2) {

@@ -14,12 +14,10 @@ export class NotesEffects {
   getNotes = this.actions.pipe(
     ofType(NotesActions.LOAD_NOTES),
     mergeMap(action =>
-      this.notesService
-        .getNotes()
-        .pipe(
-          map(data => ({ type: NotesActions.LOAD_NOTES_SUCCESS, payload: data })),
-          catchError(() => of({ type: NotesActions.LOAD_NOTES_FAIL }))
-        )
+      this.notesService.getNotes().pipe(
+        map(data => ({ type: NotesActions.LOAD_NOTES_SUCCESS, payload: data })),
+        catchError(() => of({ type: NotesActions.LOAD_NOTES_FAIL }))
+      )
     )
   );
 
@@ -28,11 +26,10 @@ export class NotesEffects {
     ofType(NotesActions.CREATE_NOTE),
     map((action: NotesActions.CreateNote) => action.payload),
     mergeMap(noteToCreate =>
-      this.notesService.createNote(noteToCreate)
-        .pipe(
-          map(payload => ({ type: NotesActions.CREATE_NOTE_SUCCESS, payload })),
-          catchError(() => of({ type: NotesActions.CREATE_NOTE_FAIL }))
-        )
+      this.notesService.createNote(noteToCreate).pipe(
+        map(payload => ({ type: NotesActions.CREATE_NOTE_SUCCESS, payload })),
+        catchError(() => of({ type: NotesActions.CREATE_NOTE_FAIL }))
+      )
     )
   );
 
@@ -41,11 +38,10 @@ export class NotesEffects {
     ofType(NotesActions.DELETE_NOTE),
     map((action: NotesActions.DeleteNote) => action.payload),
     mergeMap(noteToDelete =>
-      this.notesService.deleteNote(noteToDelete)
-        .pipe(
-          map(_ => ({ type: NotesActions.DELETE_NOTE_SUCCESS, payload: noteToDelete })),
-          catchError(() => of({ type: NotesActions.DELETE_NOTE_FAIL }))
-        )
+      this.notesService.deleteNote(noteToDelete).pipe(
+        map(_ => ({ type: NotesActions.DELETE_NOTE_SUCCESS, payload: noteToDelete })),
+        catchError(() => of({ type: NotesActions.DELETE_NOTE_FAIL }))
+      )
     )
   );
 }

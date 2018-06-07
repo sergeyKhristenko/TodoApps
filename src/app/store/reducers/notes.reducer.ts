@@ -30,7 +30,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
     case fromNotesActions.LOAD_NOTES_SUCCESS: {
       return {
         ...state,
-        data: [...state.data, ...action.payload],
+        data: [...action.payload],
         loading: false,
         loaded: true
       };
