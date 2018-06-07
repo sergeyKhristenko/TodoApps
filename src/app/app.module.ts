@@ -23,7 +23,7 @@ import { AuthGuard } from './guards/auth.guard';
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   {
-    path: 'notes',
+    path: '',
     component: NotesEditorComponent,
     children: [
       {
@@ -31,7 +31,8 @@ const appRoutes: Routes = [
         component: NotesListComponent
       }
     ], canActivate: [AuthGuard]
-  }
+  },
+  {path: '**', redirectTo: '/'}
 ];
 
 @NgModule({

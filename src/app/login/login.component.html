@@ -6,6 +6,7 @@
     <div class="inputs">
       <input type="email" formControlName="email" required name="email" placeholder="Email" [ngClass]="{'error': submitted && this.userForm.controls.email.errors}">
       <input type="password" formControlName="password" required name="password" placeholder="Password" [ngClass]="{'error': submitted && this.userForm.controls.password.errors}">
+      <div *ngIf="errorMessage" class="authError">{{errorMessage}}</div>
     </div>
     <button class="submit" type="submit" [disabled]="userForm.pristine">login</button>
   </form>

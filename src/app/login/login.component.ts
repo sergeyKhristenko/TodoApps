@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { User } from '../models';
 import { AppState } from '../store';
 import { Store } from '@ngrx/store';
 import { userActions } from '../store/actions';
@@ -16,10 +15,15 @@ import { UserState } from '../store/reducers/user.reducer';
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
-  loggedIn = false;
   returnUrl: string;
+  errorMessage: string;
 
-  constructor(private fb: FormBuilder, private store: Store<UserState>, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.createForm();
   }
 
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
 
     const formModel = this.userForm.value;
 
-    const credentials: User = {
+    const credentials = {
       email: formModel.email,
       password: formModel.password
     };
@@ -48,6 +52,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store
+      .select((state: AppState) => state.user.errorMessage)
+      .subscribe(errMessage => {
+        console.log(errMessage)
+        if(errMessage && errMessage.status === 401 && errMessage.statusText === 'Unauthorized') {
+          this.errorMessage = 'Email or password incorrect';
+        }
+      });
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 }

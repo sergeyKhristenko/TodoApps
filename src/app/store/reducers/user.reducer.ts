@@ -1,17 +1,18 @@
 import { Note, User } from '../../models';
 import * as fromUserActions from '../actions/user.action';
 import {AppState} from './';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface UserState {
   isAuthenticated: boolean;
   user: User;
-  errorMessage: string;
+  errorMessage: HttpErrorResponse;
 }
 
 export const initialState: UserState = {
   isAuthenticated: false,
   user: null,
-  errorMessage: ''
+  errorMessage: null
 };
 
 export function getInitialState() {
@@ -38,7 +39,6 @@ export function reducer(state = initialState, action: fromUserActions.NotesActio
     }
     case fromUserActions.LOGIN_USER_FAIL: {
       return {
-        ...state,
         isAuthenticated: false,
         errorMessage: action.payload,
         user: null

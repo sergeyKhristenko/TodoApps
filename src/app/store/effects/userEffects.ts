@@ -6,11 +6,11 @@ import { Observable, of } from 'rxjs';
 import { mergeMap, map, catchError, switchMap, tap } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import * as fromNotesActions from '../actions/notes.action';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions: Actions, private userService: UserService, private router: Router) {}
+  constructor(private actions: Actions, private route: ActivatedRoute, private userService: UserService, private router: Router) {}
 
   @Effect()
   loginUser = this.actions.pipe(
@@ -33,7 +33,9 @@ export class UserEffects {
     ofType(UserActions.LOGIN_USER_SUCCESS),
     tap(user => {
       localStorage.setItem('token', user.payload.token);
-      this.router.navigateByUrl('/notes');
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      
+      this.router.navigateByUrl(returnUrl);
     })
   );
 }
