@@ -16,20 +16,6 @@ export class UserService {
   };
 
   login(credentials): Observable<any> {
-    // const res = this.http.post<User>(`${this.apiURL}/login`, credentials, this.httpOptions).pipe(
-    //   map(data => {
-    //     if (data.id) {
-    //       localStorage.setItem('user', data.id);
-    //     }
-
-    //     return data;
-    //   }),
-    //   catchError(err => {
-    //     throw err;
-    //   }));
-
-    // return res;
-
     return this.http.post<User>(`${this.apiURL}/login`, credentials, this.httpOptions);
   }
 }

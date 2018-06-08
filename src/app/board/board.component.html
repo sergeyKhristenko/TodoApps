@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="column" (dragover)="dragOver($event)" (drop)="drop($event)">
+    <div class="column__title">Column 1 title</div>
+    <div class="cards">
+      <div *ngFor="let note of notes, let i = index" id="{{i}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.backgroundColor]="note.color">
+        <span class="deleteNote" (click)="deleteNote(note)">&#10006;</span>
+        <div class="item-title">{{note.title}}</div>
+        <div class="item-text">{{note.text}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="column__title">Column 2 title</div>
+    <div class="cards">
+
+    </div>
+  </div>
+</div>

@@ -56,7 +56,7 @@ function setup() {
   }).compileComponents();
 
   store = TestBed.get(Store);
-  dispatchSpy = spyOn(store, 'dispatch').and.stub();
+  dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
   fixture = TestBed.createComponent(NoteItemComponent);
   component = fixture.componentInstance;
