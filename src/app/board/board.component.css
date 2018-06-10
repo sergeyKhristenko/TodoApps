@@ -17,13 +17,13 @@
 }
 
 .item {
-  border-radius: 3px;
+  user-select: none;
+  border-radius: 5px;
   width: 200px;
   position: relative;
   margin: 20px;
   margin-bottom: 0;
   padding: 5px;
-  background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.24)
 }
 
@@ -60,10 +60,11 @@
   color: black
 }
 
-.dragging {
-  background: red !important
-}
+/* .dragging {
+  opacity: 0.5;
+} */
 
-.hover {
-  border: 1px dashed black
+.placeholder {
+  display: none;
+  background: gray;
 }

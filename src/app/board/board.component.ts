@@ -19,6 +19,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   private $destroyed: Subject<any> = new Subject();
 
   constructor(private store: Store<fromStore.AppState>) {}
+  draggable = {
+    data: null,
+    placeholder: null,
+    dragged: null
+  };
 
   ngOnInit() {
     this.store
@@ -29,13 +34,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromActions.LoadNotes());
   }
 
-  dropped(e) {
-    e.target.classList.remove('hover');
-  }
-
-
-  dragLeave(e) {
-    e.target.classList.remove('hover');
+  dragLeave($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
   }
 
   ngOnDestroy() {
@@ -45,51 +46,60 @@ export class BoardComponent implements OnInit, OnDestroy {
   dragStart(event) {
     event.target.classList.add('dragging');
     event.dataTransfer.setData('text', event.target.id);
+    event.dropEffect = 'move';
+
+    this.draggable.data = event.dataTransfer.getData('text');
+    this.draggable.dragged = event.target;
+
+    this.draggable.placeholder = document.querySelector('.item.placeholder');
+    const width = +this.draggable.dragged.clientWidth;
+    const height = +this.draggable.dragged.clientHeight;
+
+    this.draggable.placeholder.setAttribute('style', `width: ${width}px; height: ${height}px`);
   }
 
   dragOver($event) {
-    $event.preventDefault();
     $event.stopPropagation();
-
-    console.log($event.dataTransfer.getData('text'))
-    // $event.target.classList.add('hover');
-
-    // const item = $event.target.closest('.item');
-    // const cardsContainer = $event.target.closest('.column').querySelector('.cards');
-
-    // const data = $event.dataTransfer.getData('text');
-    // console.log($event)
-    // $event.target.parentNode.insertBefore(document.getElementById(data), $event.target.parentNode);
-    
+    $event.preventDefault();
   }
 
+  dragEnter($event) {
+    const container = $event.target.closest('.cards');
+    const currentItem = $event.target.closest('.item');
+
+    if (!container.children.length) {
+      this.draggable.dragged.style.display = "none";
+      this.draggable.placeholder.style.display = "block";
+      container.appendChild(this.draggable.placeholder);
+    } else if(currentItem) {
+      this.draggable.dragged.style.display = "none";      
+      this.draggable.placeholder.style.display = "block";
+      container.insertBefore(this.draggable.placeholder, currentItem);
+    } 
+  }
 
   drop($event) {
     $event.preventDefault();
+    $event.stopPropagation();
     const data = $event.dataTransfer.getData('text');
-    console.log(data)
-    $event.target.classList.remove('hover');
 
     //find cards container to insert
-    const cardsContainer = $event.target.closest('.column').querySelector('.cards');
+    const cardsContainer = $event.target.closest('.cards');
+    const dragged = document.getElementById(data);
+    const placeholder = document.querySelector('.item.placeholder');
 
     const target = $event.target;
 
-    document.getElementById(data).classList.remove('dragging');
+    dragged.classList.remove('dragging');
 
-    if (target.parentNode.className === 'item') {
-      const newOrder = target.parentNode.id;
-      const oldOrder = document.getElementById(data).id;
-      document.getElementById(data).setAttribute('order', newOrder);
-      target.parentNode.setAttribute('order', oldOrder);
-
-      target.parentNode.parentNode.insertBefore(document.getElementById(data), target.parentNode);
-    } else if (target.className === 'cards') {
-      if(target.children.length){
-        target.insertBefore(document.getElementById(data), target.children[0]);
-      }
-    } else if (target.className === 'column') {
-      cardsContainer.appendChild(document.getElementById(data));
+    const isSelf: boolean = target.closest('.item') === dragged;
+    if (isSelf) {
+      return;
     }
+
+    this.draggable.dragged.style.display = "block";    
+    this.draggable.placeholder.style.display = "none";
+
+    cardsContainer.insertBefore(dragged, placeholder);
   }
 }
