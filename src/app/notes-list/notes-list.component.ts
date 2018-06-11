@@ -25,7 +25,7 @@ export class NotesListComponent implements OnInit {
     this.store
       .select((appState: AppState) => appState.notes)
       .pipe(takeUntil(this.$destroyed))
-      .subscribe(state => (this.notes = state.data));
+      .subscribe(state => this.notes = state.data);
 
     this.store.dispatch(new fromActions.LoadNotes());
   }

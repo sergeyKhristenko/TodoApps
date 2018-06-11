@@ -19,20 +19,23 @@ import { NotesEffects } from './store/effects/notesEffects';
 import { LoginComponent } from './login/login.component';
 import { UserEffects } from './store/effects/userEffects';
 import { AuthGuard } from './guards/auth.guard';
+import { BoardComponent } from './board/board.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
   {
-    path: '',
+    path: 'notes',
     component: NotesEditorComponent,
     children: [
       {
         path: '',
         component: NotesListComponent
       }
-    ], canActivate: [AuthGuard]
+    ],
+    canActivate: [AuthGuard]
   },
-  {path: '**', redirectTo: '/'}
+  { path: '**', redirectTo: 'board' }
 ];
 
 @NgModule({
@@ -42,7 +45,8 @@ const appRoutes: Routes = [
     ColorPickerComponent,
     NotesListComponent,
     NoteItemComponent,
-    LoginComponent
+    LoginComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,7 @@ const appRoutes: Routes = [
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([NotesEffects, UserEffects]),
     RouterModule.forRoot(
-      appRoutes,
+      appRoutes
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],

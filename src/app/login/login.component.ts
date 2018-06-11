@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppState } from '../store';
@@ -6,15 +6,18 @@ import { Store } from '@ngrx/store';
 import { userActions } from '../store/actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserState } from '../store/reducers/user.reducer';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   submitted = false;
+  $destroyed = new Subject();
   returnUrl: string;
   errorMessage: string;
 
@@ -53,14 +56,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select((state: AppState) => state.user.errorMessage)
-      .subscribe(errMessage => {
-        console.log(errMessage)
-        if(errMessage && errMessage.status === 401 && errMessage.statusText === 'Unauthorized') {
+      .select((state: AppState) => state.user)
+      .pipe(takeUntil(this.$destroyed))
+      .subscribe(userState => {
+        if (userState && userState.errorMessage && userState.errorMessage.status === 401) {
           this.errorMessage = 'Email or password incorrect';
         }
       });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  ngOnDestroy() {
+    this.$destroyed.next();
   }
 }

@@ -11,7 +11,6 @@ describe('NotesListComponent', () => {
   let fixture: ComponentFixture<NotesListComponent>;
   let store: Store<AppState>;
 
-  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotesListComponent, MockComponent({ selector: 'app-note-item', inputs: ['note'] })],
