@@ -34,28 +34,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromActions.LoadNotes());
   }
 
-  dragLeave($event) {
-    $event.stopPropagation();
-    $event.preventDefault();
-  }
-
   ngOnDestroy() {
     this.$destroyed.next();
   }
 
   dragStart(event) {
-    event.target.classList.add('dragging');
-    event.dataTransfer.setData('text', event.target.id);
-    event.dropEffect = 'move';
-
-    this.draggable.data = event.dataTransfer.getData('text');
     this.draggable.dragged = event.target;
-
     this.draggable.placeholder = document.querySelector('.item.placeholder');
-    const width = +this.draggable.dragged.clientWidth;
-    const height = +this.draggable.dragged.clientHeight;
-
-    this.draggable.placeholder.setAttribute('style', `width: ${width}px; height: ${height}px`);
+    this.draggable.placeholder.setAttribute(
+      'style',
+      `width: ${this.draggable.dragged.clientWidth}px; height: ${this.draggable.dragged.clientHeight}px`
+    );
   }
 
   dragOver($event) {
@@ -66,40 +55,38 @@ export class BoardComponent implements OnInit, OnDestroy {
   dragEnter($event) {
     const container = $event.target.closest('.cards');
     const currentItem = $event.target.closest('.item');
+    const cardsFooter = container.querySelector('.cards__footer');
+    
+    this.draggable.dragged.style.display = 'none';
+    this.draggable.placeholder.style.display = 'block';
 
-    if (!container.children.length) {
-      this.draggable.dragged.style.display = "none";
-      this.draggable.placeholder.style.display = "block";
-      container.appendChild(this.draggable.placeholder);
-    } else if(currentItem) {
-      this.draggable.dragged.style.display = "none";      
-      this.draggable.placeholder.style.display = "block";
-      container.insertBefore(this.draggable.placeholder, currentItem);
-    } 
-  }
+    if (!container.querySelectorAll('[class="item"]').length || $event.target.className === 'cards__footer') {
+      container.insertBefore(this.draggable.placeholder, cardsFooter);
 
-  drop($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    const data = $event.dataTransfer.getData('text');
-
-    //find cards container to insert
-    const cardsContainer = $event.target.closest('.cards');
-    const dragged = document.getElementById(data);
-    const placeholder = document.querySelector('.item.placeholder');
-
-    const target = $event.target;
-
-    dragged.classList.remove('dragging');
-
-    const isSelf: boolean = target.closest('.item') === dragged;
-    if (isSelf) {
       return;
     }
 
-    this.draggable.dragged.style.display = "block";    
-    this.draggable.placeholder.style.display = "none";
+    if (currentItem) {
+      const cards = Array.prototype.slice.call(container.children);
 
-    cardsContainer.insertBefore(dragged, placeholder);
+      // to move the card above or below selected
+      if (cards.indexOf(this.draggable.placeholder) < cards.indexOf(currentItem)) {
+        container.insertBefore(this.draggable.placeholder, container.children[cards.indexOf(currentItem) + 1]);
+      } else {
+        container.insertBefore(this.draggable.placeholder, currentItem);
+      }
+    }
+  }
+
+  dragEnd($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    this.draggable.dragged.style.display = 'block';
+    this.draggable.placeholder.style.display = 'none';
+
+    const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
+
+    cardsContainer.insertBefore(this.draggable.dragged, document.querySelector('.item.placeholder'));
   }
 }

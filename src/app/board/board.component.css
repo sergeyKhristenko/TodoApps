@@ -8,23 +8,63 @@
 
 .column {
   width: 40%;
-  min-height: 400px;
+  height: 100%;
+  margin: 10px;
+  background: rgb(0, 0, 0, 0.1);
+}
+
+.cards__header {
+  padding: 5px;
+  text-indent: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.addBtn svg {
+  fill: #494ba2
+}
+
+.addBtn svg:active {
+  fill: white
+}
+
+.column__title {
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande',
+    sans-serif;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .cards {
-  margin: 10px;
-  min-height: 400px;  
+  padding: 5px;
+  min-height: 15px;
+}
+
+.cards__footer {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.cards__footer:hover {
+  background: rgb(0, 0, 0, 0.1);
 }
 
 .item {
-  user-select: none;
-  border-radius: 5px;
-  width: 200px;
+  border-radius: 3px;
+  width: 100%;
   position: relative;
-  margin: 20px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
   padding: 5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.24)
+  /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.24) */
 }
 
 .item:hover .deleteNote {
@@ -36,7 +76,7 @@
 }
 
 .item-text {
-  border-top: 1px solid rgba(128,21,21,.8);
+  border-top: 1px solid rgba(128, 21, 21, 0.8);
   padding-top: 5px;
   cursor: text;
 }
@@ -57,12 +97,8 @@
 }
 
 .deleteNote:active {
-  color: black
+  color: black;
 }
-
-/* .dragging {
-  opacity: 0.5;
-} */
 
 .placeholder {
   display: none;
