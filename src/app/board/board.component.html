@@ -9,7 +9,7 @@
           </svg>
         </div>
     </div>
-    <div class="cards" (dragover)="dragOver($event)" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
+    <div class="cards" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
       <div *ngFor="let note of notes, let i = index" id="{{i}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="note.color">
         <span class="deleteNote" (click)="deleteNote(note)">&#10006;</span>
         <div class="item-title">{{note.title}}</div>
@@ -27,7 +27,7 @@
             </svg>
           </div>
         </div>
-    <div class="cards" (dragend)="dragEnd($event)" (dragover)="dragOver($event)" (dragenter)="dragEnter($event)">
+    <div class="cards" (dragend)="dragEnd($event)" (dragenter)="dragEnter($event)">
     </div>
   </div>
 

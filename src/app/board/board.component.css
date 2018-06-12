@@ -49,30 +49,27 @@
   min-height: 15px;
 }
 
-.cards__footer {
-  cursor: pointer;
-  padding: 10px;
-}
-
-.cards__footer:hover {
-  background: rgb(0, 0, 0, 0.1);
-}
-
 .item {
   border-radius: 3px;
   width: 100%;
   position: relative;
   margin-bottom: 5px;
   padding: 5px;
-  /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.24) */
+}
+
+.item:hover::after {
+  cursor: pointer;
+  position: absolute;
+  content: "";
+  background: rgb(0, 0, 0, 0.07);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .item:hover .deleteNote {
   display: block;
-}
-
-.item-title {
-  cursor: move;
 }
 
 .item-text {

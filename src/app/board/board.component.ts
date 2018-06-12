@@ -19,8 +19,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   private $destroyed: Subject<any> = new Subject();
 
   constructor(private store: Store<fromStore.AppState>) {}
-  draggable = {
-    data: null,
+  draggable: { placeholder: HTMLElement; dragged: HTMLElement } = {
     placeholder: null,
     dragged: null
   };
@@ -39,7 +38,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   dragStart(event) {
+    console.log(event)
+    if(event.target.className === 'item-text') {
+      return
+    }
+
     this.draggable.dragged = event.target;
+    // create placeholder for dragged object
     this.draggable.placeholder = document.querySelector('.item.placeholder');
     this.draggable.placeholder.setAttribute(
       'style',
@@ -53,15 +58,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   dragEnter($event) {
+    console.log($event);
     const container = $event.target.closest('.cards');
     const currentItem = $event.target.closest('.item');
     const cardsFooter = container.querySelector('.cards__footer');
-    
+
     this.draggable.dragged.style.display = 'none';
     this.draggable.placeholder.style.display = 'block';
 
-    if (!container.querySelectorAll('[class="item"]').length || $event.target.className === 'cards__footer') {
-      container.insertBefore(this.draggable.placeholder, cardsFooter);
+    if (!container.querySelectorAll('[class="item"]:not([style*="display: none"])').length) {
+      container.appendChild(this.draggable.placeholder);
 
       return;
     }
