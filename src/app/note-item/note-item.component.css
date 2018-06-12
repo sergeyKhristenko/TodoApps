@@ -13,9 +13,14 @@
   display: block;
 }
 
+.item-title {
+  cursor: move;
+}
+
 .item-text {
   border-top: 1px solid rgba(128,21,21,.8);
   padding-top: 5px;
+  cursor: text;
 }
 
 .deleteNote {

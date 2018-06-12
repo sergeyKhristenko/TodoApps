@@ -1,4 +1,4 @@
-import { Note } from '../../note';
+import { Note } from '../../models';
 import * as fromNotesActions from '../actions/notes.action';
 
 export interface NotesState {
@@ -18,7 +18,6 @@ export function getInitialState() {
 }
 
 export function reducer(state = initialState, action: fromNotesActions.NotesActions) {
-  // remove this comment
   switch (action.type) {
     // Load notes
     case fromNotesActions.LOAD_NOTES: {
@@ -31,7 +30,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
     case fromNotesActions.LOAD_NOTES_SUCCESS: {
       return {
         ...state,
-        data: [...state.data, ...action.payload],
+        data: [...action.payload],
         loading: false,
         loaded: true
       };
@@ -54,7 +53,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
     case fromNotesActions.CREATE_NOTE_SUCCESS: {
       return {
         ...state,
-        data: [...state.data, ...action.payload],
+        data: [...state.data, action.payload],
         loading: false,
         loaded: true
       };
