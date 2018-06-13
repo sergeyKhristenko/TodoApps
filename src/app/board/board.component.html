@@ -1,35 +1,5 @@
 <div class="container">
-  <div class="column">
-    <div class="cards__header">
-      <div class="column__title">{{'Column 1 title' | uppercase }}</div>
-      <div class="addBtn">
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </div>
-    </div>
-    <div class="cards" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
-      <div *ngFor="let note of notes, let i = index" id="{{i}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="note.color">
-        <span class="deleteNote" (click)="deleteNote(note)">&#10006;</span>
-        <div class="item-title">{{note.title}}</div>
-        <div class="item-text">{{note.text}}</div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-      <div class="cards__header">
-          <div class="column__title">{{'Column 2 title' | uppercase}}</div>
-          <div class="addBtn">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </div>
-        </div>
-    <div class="cards" (dragend)="dragEnd($event)" (dragenter)="dragEnter($event)">
-    </div>
-  </div>
-
+  <app-board-column [notes]="notes"></app-board-column>
+  <app-board-column [notes]=""></app-board-column>
   <div class="item placeholder"></div>
 </div>

@@ -3,4 +3,5 @@ export class Note {
   title?: string;
   text?: string;
   color?: string;
+  order?: number;
 }

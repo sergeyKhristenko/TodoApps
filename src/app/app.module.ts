@@ -20,6 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { UserEffects } from './store/effects/userEffects';
 import { AuthGuard } from './guards/auth.guard';
 import { BoardComponent } from './board/board.component';
+import { BoardColumnComponent } from './board-column/board-column.component';
+import { DragndropService } from './dragndrop.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     NotesListComponent,
     NoteItemComponent,
     LoginComponent,
-    BoardComponent
+    BoardComponent,
+    BoardColumnComponent
   ],
   imports: [
     BrowserModule,

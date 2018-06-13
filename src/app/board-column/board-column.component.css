@@ -1,15 +1,5 @@
-.container {
-  margin: auto;
-  justify-content: center;
-  display: flex;
-  min-width: 400px;
-  flex-wrap: wrap;
-}
-
-/* 
 .column {
-  width: 40%;
-  height: 100%;
+  width: 300px;
   margin: 10px;
   background: rgb(0, 0, 0, 0.1);
 }
@@ -101,4 +91,4 @@
 .placeholder {
   display: none;
   background: gray;
-} */
+}
