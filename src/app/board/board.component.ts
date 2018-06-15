@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 
 import * as fromStore from '../store';
-import * as fromActions from '../store/actions/notes.action';
+import * as fromActions from '../store/actions/board.action';
 import { AppState } from '../store';
 import { Note } from '../models';
 import { Subject, Subscription } from 'rxjs';
@@ -24,11 +24,13 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store
-      .select((appState: AppState) => appState.notes)
+      .select((appState: AppState) => appState.board)
       .pipe(takeUntil(this.$destroyed))
       .subscribe(notes => (this.notes = notes.data));
 
-    this.store.dispatch(new fromActions.LoadNotes());
+    // this.store.dispatch(new fromActions.LoadNotes());
+  
+    this.store.dispatch(new fromActions.LoadBoards());
   }
 
   ngOnDestroy() {

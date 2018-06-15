@@ -22,6 +22,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { BoardComponent } from './board/board.component';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { DragndropService } from './dragndrop.service';
+import { BoardsEffects } from './store/effects/boardEffects';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -57,7 +58,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([NotesEffects, UserEffects]),
+    EffectsModule.forRoot([NotesEffects, UserEffects, BoardsEffects]),
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only
