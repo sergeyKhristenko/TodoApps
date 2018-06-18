@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Board } from '../../models';
+import { Board, Column } from '../../models';
 
 export const LOAD_BOARDS = 'Load boards';
 export const LOAD_BOARDS_FAIL = 'Load boards fail';
@@ -16,6 +16,10 @@ export const CREATE_BOARD_SUCCESS = 'Create board success';
 export const UPDATE_BOARD = 'Update board';
 export const UPDATE_BOARD_FAIL = 'Update board fail';
 export const UPDATE_BOARD_SUCCESS = 'Update board success';
+
+export const UPDATE_COLUMN = 'Update column';
+export const UPDATE_COLUMN_FAIL = 'Update column fail';
+export const UPDATE_COLUMN_SUCCESS = 'Update column success';
 
 export class LoadBoards implements Action {
   readonly type = LOAD_BOARDS;
@@ -40,7 +44,7 @@ export class LoadBoardsSuccess implements Action {
 export class LoadBoard implements Action {
   readonly type = LOAD_BOARD;
 
-  constructor(public payload: any) {
+  constructor(public payload: Board) {
     this.payload = payload;
   }
 }
@@ -56,7 +60,7 @@ export class LoadBoardFail implements Action {
 export class LoadBoardSuccess implements Action {
   readonly type = LOAD_BOARD_SUCCESS;
 
-  constructor(public payload: Board[]) {
+  constructor(public payload: Board) {
     this.payload = payload;
   }
 }
@@ -88,7 +92,7 @@ export class CreateBoardSuccess implements Action {
 export class UpdateBoard implements Action {
   readonly type = UPDATE_BOARD;
 
-  constructor(public payload: any) {
+  constructor(public payload: Board) {
     this.payload = payload;
   }
 }
@@ -96,7 +100,7 @@ export class UpdateBoard implements Action {
 export class UpdateBoardFail implements Action {
   readonly type = UPDATE_BOARD_FAIL;
 
-  constructor(public payload: any) {
+  constructor(public payload: Board) {
     this.payload = payload;
   }
 }
@@ -104,7 +108,31 @@ export class UpdateBoardFail implements Action {
 export class UpdateBoardSuccess implements Action {
   readonly type = UPDATE_BOARD_SUCCESS;
 
-  constructor(public payload: any) {
+  constructor(public payload: Board) {
+    this.payload = payload;
+  }
+}
+
+export class UpdateColumn implements Action {
+  readonly type = UPDATE_COLUMN;
+
+  constructor(public payload: Column) {
+    this.payload = payload;
+  }
+}
+
+export class UpdateColumnFail implements Action {
+  readonly type = UPDATE_COLUMN_FAIL;
+
+  constructor(public payload: Column) {
+    this.payload = payload;
+  }
+}
+
+export class UpdateColumnSuccess implements Action {
+  readonly type = UPDATE_COLUMN_SUCCESS;
+
+  constructor(public payload: Column) {
     this.payload = payload;
   }
 }
@@ -121,4 +149,7 @@ export type BoardActions =
   | CreateBoardSuccess
   | UpdateBoard
   | UpdateBoardFail
-  | UpdateBoardSuccess;
+  | UpdateBoardSuccess
+  | UpdateColumn
+  | UpdateColumnFail
+  | UpdateColumnSuccess;

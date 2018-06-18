@@ -4,6 +4,7 @@ import { BoardComponent } from './board.component';
 import { NoteItemComponent } from '../note-item/note-item.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('BoardComponent', () => {
   let component: BoardComponent;
@@ -11,7 +12,7 @@ describe('BoardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoardComponent, NoteItemComponent ],
+      declarations: [ BoardComponent, NoteItemComponent, MockComponent({selector: 'app-board-column', inputs: ['column']}) ],
       imports: [StoreModule.forRoot(reducers)]
     });
 

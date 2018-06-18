@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import * as fromStore from '../store';
-import * as fromActions from '../store/actions/notes.action';
-import { Note } from '../models';
+import * as fromActions from '../store/actions/card.action';
+import { Card } from '../models';
 import { AppState } from '../store';
 
 @Component({
@@ -16,7 +16,7 @@ import { AppState } from '../store';
   styleUrls: ['./notes-list.component.css']
 })
 export class NotesListComponent implements OnInit {
-  notes: Note[];
+  notes: Card[];
   private $destroyed: Subject<any> = new Subject();
 
   constructor(private store: Store<fromStore.AppState>) {}
@@ -27,7 +27,7 @@ export class NotesListComponent implements OnInit {
       .pipe(takeUntil(this.$destroyed))
       .subscribe(state => this.notes = state.data);
 
-    this.store.dispatch(new fromActions.LoadNotes());
+    this.store.dispatch(new fromActions.LoadCards());
   }
 
   ngOnDestroy() {

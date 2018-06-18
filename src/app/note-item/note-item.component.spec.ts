@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoteItemComponent } from './note-item.component';
 import { StoreModule, Store } from '@ngrx/store';
 import { reducers, AppState } from '../store';
-import { Note } from '../models';
-import { actionTypes } from '../store/actions';
+import { Card } from '../models';
+import { cardActions } from '../store/actions';
 import { By } from '@angular/platform-browser';
 
 let component: NoteItemComponent;
@@ -23,12 +23,12 @@ describe('NoteItemComponent', () => {
     });
     
     it('dispatch action on deleteNote', () => {
-      const testNote: Note = { title: 'test title', text: 'test text' };
+      const testNote: Card = { title: 'test title', text: 'test text' };
       
       component.deleteNote(testNote);
       
       expect(dispatchSpy).toHaveBeenCalledTimes(1);
-      expect(dispatchSpy).toHaveBeenCalledWith(new actionTypes.DeleteNote(testNote));
+      expect(dispatchSpy).toHaveBeenCalledWith(new cardActions.DeleteCard(testNote));
     });
   });
 
@@ -44,7 +44,7 @@ describe('NoteItemComponent', () => {
       deleteBtn.triggerEventHandler('click', null);
 
       expect(dispatchSpy).toHaveBeenCalledTimes(1);
-      expect(dispatchSpy).toHaveBeenCalledWith(new actionTypes.DeleteNote(testNote));
+      expect(dispatchSpy).toHaveBeenCalledWith(new cardActions.DeleteCard(testNote));
     });
   });
 });

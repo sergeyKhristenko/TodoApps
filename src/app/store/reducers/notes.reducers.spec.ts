@@ -1,6 +1,6 @@
 import * as fromReducers from './notes.reducer';
-import * as fromActions from '../actions/notes.action';
-import { Note } from '../../models';
+import * as fromActions from '../actions/card.action';
+import { Card } from '../../models';
 
 describe('Notes Reducers tests', () => {
   it('return initial state', () => {
@@ -12,18 +12,18 @@ describe('Notes Reducers tests', () => {
   });
 
   it('LoadNotes success', () => {
-    const notes: Note[] = [{title: 'title'}];
+    const notes: Card[] = [{title: 'title'}];
     const { initialState } = fromReducers;
-    const action = new fromActions.LoadNotesSuccess(notes);
+    const action = new fromActions.LoadCardsSuccess(notes);
     const state = fromReducers.reducer(initialState, action);
 
     expect(state.data).toEqual(notes);
   });
 
   it('Create note', () => {
-    const payload: Note = true as Note;
+    const payload: Card = true as Card;
     const { initialState } = fromReducers;
-    const action = new fromActions.CreateNote(payload);
+    const action = new fromActions.CreateCard(payload);
     const state = fromReducers.reducer(initialState, action);
 
     expect(state.loading).toEqual(true);
@@ -31,18 +31,18 @@ describe('Notes Reducers tests', () => {
   });
 
   it('Create_note_success should add note', () => {
-    const payload: Note = true as Note;
+    const payload: Card = true as Card;
     const { initialState } = fromReducers;
-    const action = new fromActions.CreateNoteSuccess(payload);
+    const action = new fromActions.CreateCardSuccess(payload);
     const state = fromReducers.reducer(initialState, action);
 
     expect(state.data).toEqual([payload]);
   });
 
   it('DeleteNoteSuccess deletes the note', () => {
-    const payload: Note = true as Note;
+    const payload: Card = true as Card;
     const { initialState } = fromReducers;
-    const action = new fromActions.DeleteNoteSuccess(payload);
+    const action = new fromActions.DeleteCardSuccess(payload);
     const state = fromReducers.reducer({ ...initialState, data: [...initialState.data, payload] }, action);
 
     expect(state.data).toEqual([]);

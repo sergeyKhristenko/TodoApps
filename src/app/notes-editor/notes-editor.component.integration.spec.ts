@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { reducers, AppState } from '../store';
-import { actionTypes } from '../store/actions';
-import { Note } from '../models';
+import { cardActions } from '../store/actions';
+import { Card } from '../models';
 
 import { NotesEditorComponent } from './notes-editor.component';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
@@ -44,7 +44,7 @@ describe('Notes-Editor integration tests', () => {
   });
 
   it('change color on click on colorBtn', () => {
-    const expectedNote: Note = { title: 'test title', text: 'test text', color: '' };
+    const expectedNote: Card = { title: 'test title', text: 'test text', color: '' };
     sendKeys('.titleInput', expectedNote.title);
     sendKeys('.textInput', expectedNote.text);
 
@@ -56,7 +56,7 @@ describe('Notes-Editor integration tests', () => {
     addBtn.triggerEventHandler('click', null);
 
     expect(storeSpy).toHaveBeenCalledTimes(1);
-    expect(storeSpy).toHaveBeenCalledWith(new actionTypes.CreateNote(expectedNote));
+    expect(storeSpy).toHaveBeenCalledWith(new cardActions.CreateCard(expectedNote));
   });
 });
 

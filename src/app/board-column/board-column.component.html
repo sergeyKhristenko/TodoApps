@@ -9,10 +9,10 @@
         </div>
     </div>
     <div class="cards" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
-      <div *ngFor="let note of notes, let i = index" id="{{note._id}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="note.color">
-        <span class="deleteNote" (click)="deleteNote(note)">&#10006;</span>
-        <div class="item-title">{{note.title}}</div>
-        <div class="item-text">{{note.text}}</div>
+      <div *ngFor="let card of column.cards, let i = index" id="{{card._id}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="card.color">
+        <span class="deleteNote" (click)="deleteNote(card)">&#10006;</span>
+        <div class="item-title">{{card.title}}</div>
+        <div class="item-text">{{card.text}}</div>
       </div>
     </div>
   </div>

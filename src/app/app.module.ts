@@ -14,8 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store';
 import * as fromReducers from './store/reducers/notes.reducer';
-import * as fromActions from './store/actions/notes.action';
-import { NotesEffects } from './store/effects/notesEffects';
+import * as fromActions from './store/actions/card.action';
+import { CardsEffects } from './store/effects/cardsEffects';
 import { LoginComponent } from './login/login.component';
 import { UserEffects } from './store/effects/userEffects';
 import { AuthGuard } from './guards/auth.guard';
@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([NotesEffects, UserEffects, BoardsEffects]),
+    EffectsModule.forRoot([CardsEffects, UserEffects, BoardsEffects]),
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only

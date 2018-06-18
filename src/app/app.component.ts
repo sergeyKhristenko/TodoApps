@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Note } from './models';
-import { NoteService } from './note.service';
+import { Card } from './models';
+import { CardService } from './card.service';
 
 @Component({
   selector: 'app-root',

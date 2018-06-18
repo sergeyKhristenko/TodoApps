@@ -1,8 +1,8 @@
-import { Note } from '../../models';
-import * as fromNotesActions from '../actions/notes.action';
+import { Card } from '../../models';
+import * as fromNotesActions from '../actions/card.action';
 
 export interface NotesState {
-  data: Note[];
+  data: Card[];
   loading: boolean;
   loaded: boolean;
 }
@@ -17,17 +17,17 @@ export function getInitialState() {
   return { ...initialState };
 }
 
-export function reducer(state = initialState, action: fromNotesActions.NotesActions) {
+export function reducer(state = initialState, action: fromNotesActions.CardActions) {
   switch (action.type) {
     // Load notes
-    case fromNotesActions.LOAD_NOTES: {
+    case fromNotesActions.LOAD_CARDS: {
       return {
         ...state,
         loading: true,
         loaded: false
       };
     }
-    case fromNotesActions.LOAD_NOTES_SUCCESS: {
+    case fromNotesActions.LOAD_CARDS_SUCCESS: {
       return {
         ...state,
         data: [...action.payload],
@@ -35,7 +35,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
         loaded: true
       };
     }
-    case fromNotesActions.LOAD_NOTES_FAIL: {
+    case fromNotesActions.LOAD_CARDS_FAIL: {
       return {
         ...state,
         loading: false,
@@ -43,14 +43,14 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
       };
     }
     // Create notes
-    case fromNotesActions.CREATE_NOTE: {
+    case fromNotesActions.CREATE_CARD: {
       return {
         ...state,
         loading: true,
         loaded: false
       };
     }
-    case fromNotesActions.CREATE_NOTE_SUCCESS: {
+    case fromNotesActions.CREATE_CARD_SUCCESS: {
       return {
         ...state,
         data: [...state.data, action.payload],
@@ -58,7 +58,7 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
         loaded: true
       };
     }
-    case fromNotesActions.CREATE_NOTE_FAIL: {
+    case fromNotesActions.CREATE_CARD_FAIL: {
       return {
         ...state,
         loading: false,
@@ -66,21 +66,21 @@ export function reducer(state = initialState, action: fromNotesActions.NotesActi
       };
     }
     // Delete Notes
-    case fromNotesActions.DELETE_NOTE: {
+    case fromNotesActions.DELETE_CARD: {
       return {
         ...state,
         loading: true,
         loaded: false
       }
     }
-    case fromNotesActions.DELETE_NOTE_FAIL: {
+    case fromNotesActions.DELETE_CARD_FAIL: {
       return {
         ...state,
         loading: false,
         loaded: false
       }
     }
-    case fromNotesActions.DELETE_NOTE_SUCCESS: {
+    case fromNotesActions.DELETE_CARD_SUCCESS: {
       return {
         ...state,
         data: [...state.data].filter(note => note !== action.payload),

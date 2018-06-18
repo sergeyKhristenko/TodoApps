@@ -2,13 +2,15 @@ import { Board } from '../../models';
 import * as fromBoardActions from '../actions/board.action';
 
 export interface BoardState {
-  data: Board[];
+  allBoards: Board[];
+  currentBoard: Board;
   loading: boolean;
   loaded: boolean;
 }
 
 export const initialState: BoardState = {
-  data: [],
+  allBoards: [],
+  currentBoard: {},
   loading: false,
   loaded: false
 };
@@ -38,6 +40,7 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
     case fromBoardActions.LOAD_BOARDS_FAIL: {
       return {
         ...state,
+        allBoards: action.payload,
         loading: false,
         loaded: false
       };
@@ -53,7 +56,7 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
     case fromBoardActions.LOAD_BOARD_SUCCESS: {
       return {
         ...state,
-        data: [...action.payload],
+        currentBoard: action.payload,
         loading: false,
         loaded: true
       };
@@ -76,7 +79,7 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
     case fromBoardActions.CREATE_BOARD_SUCCESS: {
       return {
         ...state,
-        data: [...state.data, action.payload],
+        allBoards: [...state.allBoards, action.payload],
         loading: false,
         loaded: true
       };
@@ -94,21 +97,45 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
         ...state,
         loading: true,
         loaded: false
-      }
+      };
     }
     case fromBoardActions.UPDATE_BOARD_FAIL: {
       return {
         ...state,
         loading: false,
         loaded: false
-      }
+      };
     }
     case fromBoardActions.UPDATE_BOARD_SUCCESS: {
       return {
         ...state,
+        currentBoard: action.payload,
         loading: false,
         loaded: true
-      }
+      };
+    }
+    // Update Column
+    case fromBoardActions.UPDATE_COLUMN: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
+    case fromBoardActions.UPDATE_COLUMN_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
+    case fromBoardActions.UPDATE_COLUMN_SUCCESS: {
+      return {
+        ...state,
+        currentBoard: action.payload,
+        loading: false,
+        loaded: true
+      };
     }
     default:
       return state;

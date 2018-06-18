@@ -1,4 +1,4 @@
-export class Note {
+export class Card {
   _id?: string;
   title?: string;
   text?: string;

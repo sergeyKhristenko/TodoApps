@@ -1,4 +1,4 @@
-import { Note, User } from '../../models';
+import { Card, User } from '../../models';
 import * as fromUserActions from '../actions/user.action';
 import {AppState} from './';
 import { HttpErrorResponse } from '@angular/common/http';

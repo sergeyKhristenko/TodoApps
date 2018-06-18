@@ -56,4 +56,16 @@ export class BoardsEffects {
       )
     )
   );
+
+  @Effect()
+  updateColumn = this.actions.pipe(
+    ofType(BoardActions.UPDATE_COLUMN),
+    map((action: BoardActions.UpdateColumn) => action.payload),
+    mergeMap(column =>
+      this.boardService.updateColumn(column).pipe(
+        map(_ => ({ type: BoardActions.UPDATE_COLUMN_SUCCESS, payload: column })),
+        catchError(() => of({ type: BoardActions.UPDATE_COLUMN_FAIL }))
+      )
+    )
+  );
 }

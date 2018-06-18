@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
-import { Note } from '../models';
-import { NoteService } from '../note.service';
+import { Card } from '../models';
+import { CardService } from '../card.service';
 import { Store } from '@ngrx/store';
-import * as fromActions from '../store/actions/notes.action';
+import * as fromActions from '../store/actions/card.action';
 
 import { AppState } from '../store';
 
@@ -27,8 +27,8 @@ export class NotesEditorComponent{
       return
     }
 
-    const note: Note = { title: this.noteTitle, text: this.noteText, color: this.color };
-    this.store.dispatch(new fromActions.CreateNote(note));
+    const note: Card = { title: this.noteTitle, text: this.noteText, color: this.color };
+    this.store.dispatch(new fromActions.CreateCard(note));
 
     this.color = this.DEFAULT_COLOR;
     this.noteText = this.DEFAULT_TEXT;

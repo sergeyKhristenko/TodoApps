@@ -1,66 +1,66 @@
-import { actionTypes } from '.';
-import { Note } from '../../models';
+import { cardActions } from '.';
+import { Card } from '../../models';
 
-describe('Notes actions tests', () => {
-  it('LoadNotes', () => {
-    const action = new actionTypes.LoadNotes();
+describe('Cards actions tests', () => {
+  it('LoadCards', () => {
+    const action = new cardActions.LoadCards();
 
-    expect({ ...action }).toEqual({ type: actionTypes.LOAD_NOTES });
+    expect({ ...action }).toEqual({ type: cardActions.LOAD_CARDS });
   });
 
-  it('LoadNotesFail', () => {
+  it('LoadCardsFail', () => {
     const payload = true;
-    const action = new actionTypes.LoadNotesFail(payload);
+    const action = new cardActions.LoadCardsFail(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.LOAD_NOTES_FAIL, payload });
+    expect({ ...action }).toEqual({ type: cardActions.LOAD_CARDS_FAIL, payload });
   });
 
-  it('LoadNotesSuccess', () => {
-    const payload = 'true' as Note;
-    const action = new actionTypes.LoadNotesSuccess([payload]);
+  it('LoadCardsSuccess', () => {
+    const payload = 'true' as Card;
+    const action = new cardActions.LoadCardsSuccess([payload]);
 
-    expect({ ...action }).toEqual({ type: actionTypes.LOAD_NOTES_SUCCESS, payload: [payload] });
+    expect({ ...action }).toEqual({ type: cardActions.LOAD_CARDS_SUCCESS, payload: [payload] });
   });
 
-  it('CreateNote', () => {
+  it('CreateCard', () => {
     const payload = true;
-    const action = new actionTypes.CreateNote(payload);
+    const action = new cardActions.CreateCard(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.CREATE_NOTE, payload });
+    expect({ ...action }).toEqual({ type: cardActions.CREATE_CARD, payload });
   });
 
-  it('CreateNoteFail', () => {
+  it('CreateCardFail', () => {
     const payload = true;
-    const action = new actionTypes.CreateNoteFail(payload);
+    const action = new cardActions.CreateCardFail(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.CREATE_NOTE_FAIL, payload });
+    expect({ ...action }).toEqual({ type: cardActions.CREATE_CARD_FAIL, payload });
   });
 
-  it('CreateNoteSuccess', () => {
-    const payload = true as Note;
-    const action = new actionTypes.CreateNoteSuccess(payload);
+  it('CreateCardSuccess', () => {
+    const payload = true as Card;
+    const action = new cardActions.CreateCardSuccess(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.CREATE_NOTE_SUCCESS, payload });
+    expect({ ...action }).toEqual({ type: cardActions.CREATE_CARD_SUCCESS, payload });
   });
 
-  it('DeleteNote', () => {
+  it('DeleteCard', () => {
     const payload = true;
-    const action = new actionTypes.DeleteNote(payload);
+    const action = new cardActions.DeleteCard(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.DELETE_NOTE, payload });
+    expect({ ...action }).toEqual({ type: cardActions.DELETE_CARD, payload });
   });
 
-  it('DeleteNoteFail', () => {
+  it('DeleteCardFail', () => {
     const payload = true;
-    const action = new actionTypes.DeleteNoteFail(payload);
+    const action = new cardActions.DeleteCardFail(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.DELETE_NOTE_FAIL, payload });
+    expect({ ...action }).toEqual({ type: cardActions.DELETE_CARD_FAIL, payload });
   });
 
-  it('DeleteNoteSuccess', () => {
+  it('DeleteCardSuccess', () => {
     const payload = true;
-    const action = new actionTypes.DeleteNoteSuccess(payload);
+    const action = new cardActions.DeleteCardSuccess(payload);
 
-    expect({ ...action }).toEqual({ type: actionTypes.DELETE_NOTE_SUCCESS, payload });
+    expect({ ...action }).toEqual({ type: cardActions.DELETE_CARD_SUCCESS, payload });
   });
 });

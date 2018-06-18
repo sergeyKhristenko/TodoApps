@@ -1,5 +1,4 @@
 <div class="container">
-  <app-board-column [notes]="notes"></app-board-column>
-  <app-board-column [notes]=""></app-board-column>
+  <app-board-column *ngFor='let column of columns' [column]="column"></app-board-column>
   <div class="item placeholder"></div>
 </div>

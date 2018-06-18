@@ -3,14 +3,14 @@ import { MockComponent } from 'ng2-mock-component';
 import { NgModule, Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { actionTypes } from '../store/actions';
+import { cardActions } from '../store/actions';
 
 import { NotesEditorComponent } from './notes-editor.component';
 import { StoreModule, Store } from '@ngrx/store';
 
 import { reducers, AppState } from '../store/reducers';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
-import { Note } from '../models';
+import { Card } from '../models';
 
 describe('NotesEditorComponent', () => {
   let component: NotesEditorComponent;
@@ -37,7 +37,7 @@ describe('NotesEditorComponent', () => {
   });
 
   it('dispatch createNote action on create new todo', () => {
-    const testNote: Note = { title: 'text', text: 'title', color: '#ffffff' };
+    const testNote: Card = { title: 'text', text: 'title', color: '#ffffff' };
     component.noteText = testNote.text;
     component.noteTitle = testNote.title;
     component.color = testNote.color;
@@ -45,7 +45,7 @@ describe('NotesEditorComponent', () => {
     component.addNewTodo();
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(new actionTypes.CreateNote(testNote));
+    expect(dispatchSpy).toHaveBeenCalledWith(new cardActions.CreateCard(testNote));
   });
 
   it('not create new todo with empty title', () => {
@@ -67,7 +67,7 @@ describe('NotesEditorComponent', () => {
   });
 
   it('restore default settings after creating new todo', () => {
-    const testNote: Note = { title: 'text', text: 'title', color: '#ffffff' };
+    const testNote: Card = { title: 'text', text: 'title', color: '#ffffff' };
     component.noteText = testNote.text;
     component.noteTitle = testNote.title;
     component.color = testNote.color;

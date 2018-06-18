@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { Note } from '../models';
+import { Component, OnInit, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Card, Column } from '../models';
 import { DragndropService, Toggle } from '../dragndrop.service';
+import { BoardState } from '../store/reducers/board.reducer';
+import { Store } from '@ngrx/store';
+import { boardActions, cardActions } from '../store/actions';
 
 @Component({
   selector: 'app-board-column',
@@ -9,18 +12,18 @@ import { DragndropService, Toggle } from '../dragndrop.service';
   encapsulation: ViewEncapsulation.None
 })
 export class BoardColumnComponent implements OnInit {
-  @Input() notes: Note[] = [];
+  @Input() column: Column;
 
-  constructor(private dndService: DragndropService) {}
+  constructor(private dndService: DragndropService, private store: Store<BoardState>) {}
 
   ngOnInit() {}
 
-  addDroppedNote(note: Note) {
-    this.notes = [...this.notes, note].sort((a, b) => a.order - b.order);
+  addDroppedNote(note: Card) {
+    this.column.cards = [...this.column.cards, note];
   }
 
   dragStart(event) {
-    console.log(this, this.notes);
+    console.log(this, this.column.cards);    
     this.dndService.setSource({ dragged: event.target, source: this });
 
     const placeholder = document.querySelector('.item.placeholder');
@@ -37,7 +40,6 @@ export class BoardColumnComponent implements OnInit {
   dragEnter($event) {
     const container = $event.target.closest('.cards');
     const currentItem = $event.target.closest('.item');
-    const cardsFooter = container.querySelector('.cards__footer');
 
     this.dndService.setSource({ target: this });
 
@@ -76,14 +78,13 @@ export class BoardColumnComponent implements OnInit {
     const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
     cardsContainer.insertBefore(dragged, document.querySelector('.item.placeholder'));
 
-    const noteId = dragged.id;
+    const draggedNote = source.column.cards.find(note => note._id === dragged.id);
 
-    const draggedNote = source.notes.find(note => note._id === noteId);
+    source.column.cards = source.column.cards.filter(note => note !== draggedNote);
+    target.column.cards = [...target.column.cards, draggedNote];
 
-    source.notes = source.notes.filter(note => note !== draggedNote);
-    target.notes = [...target.notes, draggedNote].sort((a, b) => a.order - b.order);
+    target.column.cards.find(note => note._id === dragged.id).order = [...cardsContainer.children as any].indexOf(dragged);
 
-    const cards = Array.prototype.slice.call(cardsContainer.children);
-    target.notes.find(note => note._id === dragged.id).order = cards.indexOf(dragged);
+    this.store.dispatch(new cardActions.UpdateCard(draggedNote));
   }
 }

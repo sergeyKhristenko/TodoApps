@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Note } from '../models';
-import { NoteService } from '../note.service';
+import { Card } from '../models';
+import { CardService } from '../card.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store';
-import { actionTypes } from '../store/actions';
+import { cardActions } from '../store/actions';
 
 @Component({
   selector: 'app-note-item',
@@ -11,13 +11,13 @@ import { actionTypes } from '../store/actions';
   styleUrls: ['./note-item.component.css']
 })
 export class NoteItemComponent {
-  @Input() note: Note;
+  @Input() note: Card;
   @Input() id: number;
 
   constructor(private store: Store<AppState>) {}
 
   deleteNote(note) {
-    this.store.dispatch(new actionTypes.DeleteNote(note));
+    this.store.dispatch(new cardActions.DeleteCard(note));
   }
 
   dragStart(event) {

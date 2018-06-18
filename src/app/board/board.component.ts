@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import * as fromStore from '../store';
 import * as fromActions from '../store/actions/board.action';
 import { AppState } from '../store';
-import { Note } from '../models';
+import { Card, Board, Column } from '../models';
 import { Subject, Subscription } from 'rxjs';
 import { DragndropService } from '../dragndrop.service';
 
@@ -17,7 +17,8 @@ import { DragndropService } from '../dragndrop.service';
   encapsulation: ViewEncapsulation.None
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  notes: Note[];
+  notes: Card[];
+  columns: Column[];
   private $destroyed: Subject<any> = new Subject();
 
   constructor(private store: Store<fromStore.AppState>, private dndService: DragndropService) {}
@@ -26,11 +27,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.store
       .select((appState: AppState) => appState.board)
       .pipe(takeUntil(this.$destroyed))
-      .subscribe(notes => (this.notes = notes.data));
+      .subscribe(state => (this.columns = state.currentBoard.columns));
 
-    // this.store.dispatch(new fromActions.LoadNotes());
-  
-    this.store.dispatch(new fromActions.LoadBoards());
+    this.store.dispatch(new fromActions.LoadBoard({ _id: '5b238e9db31522204298fb94' }));
   }
 
   ngOnDestroy() {
@@ -78,16 +77,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  // dragEnd($event) {    
+  // dragEnd($event) {
   //   $event.preventDefault();
   //   $event.stopPropagation();
-    
+
   //   this.dndService.dragged.style.display = 'block';
   //   this.dndService.placeholder.style.display = 'none';
-    
+
   //   const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
   //   cardsContainer.insertBefore(this.dndService.dragged, document.querySelector('.item.placeholder'));
-    
+
   //   const cards = Array.prototype.slice.call(cardsContainer.children);
   //   this.notes.find(note => note._id === this.dndService.dragged.id).order = cards.indexOf(this.dndService.dragged);
   // }
@@ -133,16 +132,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  // dragEnd($event) {    
+  // dragEnd($event) {
   //   $event.preventDefault();
   //   $event.stopPropagation();
-    
+
   //   this.draggable.dragged.style.display = 'block';
   //   this.draggable.placeholder.style.display = 'none';
-    
+
   //   const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
   //   cardsContainer.insertBefore(this.draggable.dragged, document.querySelector('.item.placeholder'));
-    
+
   //   const cards = Array.prototype.slice.call(cardsContainer.children);
   //   this.notes.find(note => note._id === this.draggable.dragged.id).order = cards.indexOf(this.draggable.dragged);
   // }
