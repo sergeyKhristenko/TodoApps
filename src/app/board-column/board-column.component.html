@@ -1,7 +1,7 @@
 <div class="column">
     <div class="cards__header">
       <div class="column__title">{{column.name | uppercase}}</div>
-      <div class="addBtn" (click)="addCard($event)">
+      <div class="addBtn" (click)="addCard()">
           <svg width="24" height="24" viewBox="0 0 24 24">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -11,8 +11,17 @@
     <div class="cards" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
       <div *ngFor="let card of column.cards, let i = index" id="{{card._id}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="card.color">
         <span class="deleteNote" (click)="deleteCard(card)">&#10006;</span>
+        <span class="editNote" (click)="editCard(card)">edit</span>
         <div class="item-title">{{card.title}}</div>
         <div class="item-text">{{card.text}}</div>
       </div>
     </div>
+
+  <ngx-smart-modal #editModal identifier="editModal" (onClose)="addModalClosed()">
+    <app-notes-editor *ngIf="editModal.hasData()" [card]='editModal.getData()' [action]="action.edit" (cardEdited)="onEditEvent($event)"></app-notes-editor>
+  </ngx-smart-modal>
+
+  <ngx-smart-modal #addModal identifier="addModal">
+      <app-notes-editor [card]='addModal.getData()' [action]="action.create" (cardAdded)="onAddEvent($event)"></app-notes-editor>
+    </ngx-smart-modal>
   </div>

@@ -8,7 +8,7 @@ import * as fromActions from '../store/actions/board.action';
 import { AppState } from '../store';
 import { Card, Board, Column } from '../models';
 import { Subject, Subscription } from 'rxjs';
-import { DragndropService } from '../dragndrop.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-board',
@@ -21,7 +21,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   columns: Column[];
   private $destroyed: Subject<any> = new Subject();
 
-  constructor(private store: Store<fromStore.AppState>, private dndService: DragndropService) {}
+  constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit() {
     this.store
@@ -29,6 +29,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.$destroyed))
       .subscribe(state => (this.columns = state.currentBoard.columns));
 
+    // TODO replace mock id
     this.store.dispatch(new fromActions.LoadBoard({ _id: '5b238e9db31522204298fb94' }));
   }
 
@@ -36,113 +37,4 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.$destroyed.next();
   }
 
-  // dragStart(event) {
-  //   this.dndService.drag = event.target;
-  //   // create placeholder for dragged object
-  //   this.dndService.placeholder = document.querySelector('.item.placeholder');
-  //   this.dndService.placeholder.setAttribute(
-  //     'style',
-  //     `width: ${this.dndService.dragged.clientWidth}px; height: ${this.dndService.dragged.clientHeight}px`
-  //   );
-  // }
-
-  // dragOver($event) {
-  //   $event.stopPropagation();
-  //   $event.preventDefault();
-  // }
-
-  // dragEnter($event) {
-  //   const container = $event.target.closest('.cards');
-  //   const currentItem = $event.target.closest('.item');
-  //   const cardsFooter = container.querySelector('.cards__footer');
-
-  //   this.dndService.dragged.style.display = 'none';
-  //   this.dndService.placeholder.style.display = 'block';
-
-  //   if (!container.querySelectorAll('[class="item"]:not([style*="display: none"])').length) {
-  //     container.appendChild(this.dndService.placeholder);
-
-  //     return;
-  //   }
-
-  //   if (currentItem) {
-  //     const cards = Array.prototype.slice.call(container.children);
-
-  //     // to move the card above or below selected
-  //     if (cards.indexOf(this.dndService.placeholder) < cards.indexOf(currentItem)) {
-  //       container.insertBefore(this.dndService.placeholder, container.children[cards.indexOf(currentItem) + 1]);
-  //     } else {
-  //       container.insertBefore(this.dndService.placeholder, currentItem);
-  //     }
-  //   }
-  // }
-
-  // dragEnd($event) {
-  //   $event.preventDefault();
-  //   $event.stopPropagation();
-
-  //   this.dndService.dragged.style.display = 'block';
-  //   this.dndService.placeholder.style.display = 'none';
-
-  //   const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
-  //   cardsContainer.insertBefore(this.dndService.dragged, document.querySelector('.item.placeholder'));
-
-  //   const cards = Array.prototype.slice.call(cardsContainer.children);
-  //   this.notes.find(note => note._id === this.dndService.dragged.id).order = cards.indexOf(this.dndService.dragged);
-  // }
-
-  // dragStart(event) {
-  //   this.draggable.dragged = event.target;
-  //   // create placeholder for dragged object
-  //   this.draggable.placeholder = document.querySelector('.item.placeholder');
-  //   this.draggable.placeholder.setAttribute(
-  //     'style',
-  //     `width: ${this.draggable.dragged.clientWidth}px; height: ${this.draggable.dragged.clientHeight}px`
-  //   );
-  // }
-
-  // dragOver($event) {
-  //   $event.stopPropagation();
-  //   $event.preventDefault();
-  // }
-
-  // dragEnter($event) {
-  //   const container = $event.target.closest('.cards');
-  //   const currentItem = $event.target.closest('.item');
-  //   const cardsFooter = container.querySelector('.cards__footer');
-
-  //   this.draggable.dragged.style.display = 'none';
-  //   this.draggable.placeholder.style.display = 'block';
-
-  //   if (!container.querySelectorAll('[class="item"]:not([style*="display: none"])').length) {
-  //     container.appendChild(this.draggable.placeholder);
-
-  //     return;
-  //   }
-
-  //   if (currentItem) {
-  //     const cards = Array.prototype.slice.call(container.children);
-
-  //     // to move the card above or below selected
-  //     if (cards.indexOf(this.draggable.placeholder) < cards.indexOf(currentItem)) {
-  //       container.insertBefore(this.draggable.placeholder, container.children[cards.indexOf(currentItem) + 1]);
-  //     } else {
-  //       container.insertBefore(this.draggable.placeholder, currentItem);
-  //     }
-  //   }
-  // }
-
-  // dragEnd($event) {
-  //   $event.preventDefault();
-  //   $event.stopPropagation();
-
-  //   this.draggable.dragged.style.display = 'block';
-  //   this.draggable.placeholder.style.display = 'none';
-
-  //   const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
-  //   cardsContainer.insertBefore(this.draggable.dragged, document.querySelector('.item.placeholder'));
-
-  //   const cards = Array.prototype.slice.call(cardsContainer.children);
-  //   this.notes.find(note => note._id === this.draggable.dragged.id).order = cards.indexOf(this.draggable.dragged);
-  // }
 }

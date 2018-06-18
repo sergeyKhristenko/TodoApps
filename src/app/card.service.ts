@@ -19,8 +19,8 @@ export class CardService {
     return this.http.get<Card[]>(`${this.apiURL}/cards`);
   }
 
-  createCard(note: Card): Observable<any> {
-    return this.http.post<Card>(`${this.apiURL}/cards`, note, this.httpOptions);
+  createCard(card: Card): Observable<any> {
+    return this.http.post<Card>(`${this.apiURL}/cards`, card, this.httpOptions);
   }
 
   deleteCard(note): Observable<any> {

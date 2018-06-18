@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { boardActions, cardActions } from '../store/actions';
 import { AppState } from '../store';
 import { CardsState } from '../store/reducers/card.reducer';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-board-column',
@@ -15,13 +16,36 @@ import { CardsState } from '../store/reducers/card.reducer';
 })
 export class BoardColumnComponent implements OnInit {
   @Input() column: Column;
+  action = {
+    create: 'create',
+    edit: 'edit'
+  }
 
-  constructor(private dndService: DragndropService, private store: Store<CardsState>) {}
+  constructor(private dndService: DragndropService, private store: Store<CardsState>, public ngxSmartModalService: NgxSmartModalService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+  
+  onEditEvent(card) {
+    this.store.dispatch(new cardActions.UpdateCard(card));
+  }
 
-  addCard($event) {
-    // TODO
+  onAddEvent(card) {
+    this.store.dispatch(new cardActions.CreateCard(card));
+  }
+
+  addCard() {
+    const emptyCard = {
+      columnId: this.column._id
+    }
+
+    this.ngxSmartModalService.setModalData(emptyCard, 'addModal')
+    this.ngxSmartModalService.getModal('addModal').open();
+  }
+
+  editCard(card) {
+    this.ngxSmartModalService.setModalData(card, 'editModal')
+    this.ngxSmartModalService.getModal('editModal').open();
   }
 
   deleteCard(card) {

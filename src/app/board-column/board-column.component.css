@@ -46,6 +46,7 @@
   position: relative;
   margin-bottom: 5px;
   padding: 5px;
+  cursor: pointer;
 }
 /* 
 .item:hover::after {
@@ -59,14 +60,15 @@
   left: 0;
 } */
 
-.item:hover .deleteNote {
-  display: block;
-}
-
 .item-text {
   border-top: 1px solid rgba(128, 21, 21, 0.8);
   padding-top: 5px;
   cursor: text;
+}
+
+
+.item:hover .deleteNote, .item:hover .editNote {
+  display: block;
 }
 
 .deleteNote {
@@ -86,6 +88,23 @@
 
 .deleteNote:active {
   color: black;
+}
+
+.editNote {
+  display: none;
+  color: black;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 8px;
+  width: 30px;
+  height: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2.5;
+  outline: none;
 }
 
 .placeholder {

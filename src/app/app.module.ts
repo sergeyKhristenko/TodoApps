@@ -23,6 +23,7 @@ import { BoardComponent } from './board/board.component';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { DragndropService } from './dragndrop.service';
 import { BoardsEffects } from './store/effects/boardEffects';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    NgxSmartModalModule.forRoot()
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
