@@ -4,4 +4,5 @@ export class Card {
   text?: string;
   color?: string;
   order?: number;
+  columnId?: string;
 }

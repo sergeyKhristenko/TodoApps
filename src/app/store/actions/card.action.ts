@@ -109,7 +109,6 @@ export class UpdateCardSuccess implements Action {
   }
 }
 
-
 export type CardActions =
   | LoadCards
   | LoadCardsFail
@@ -119,4 +118,7 @@ export type CardActions =
   | CreateCardSuccess
   | DeleteCard
   | DeleteCardFail
-  | DeleteCardSuccess;
+  | DeleteCardSuccess
+  | UpdateCard
+  | UpdateCardFail
+  | UpdateCardSuccess;

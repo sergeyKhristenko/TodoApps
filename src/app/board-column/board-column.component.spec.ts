@@ -10,7 +10,7 @@ describe('BoardColumnComponent', () => {
   let fixture: ComponentFixture<BoardColumnComponent>;
 
   const columnMock = new Column();
-  columnMock.title = 'title';
+  columnMock.name = 'title';
   columnMock._id = '1';
   columnMock.cards = [{ title: 'title', text: 'text', color: '#ffffff' }];
 

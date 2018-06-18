@@ -47,7 +47,7 @@
   margin-bottom: 5px;
   padding: 5px;
 }
-
+/* 
 .item:hover::after {
   cursor: pointer;
   position: absolute;
@@ -57,7 +57,7 @@
   width: 100%;
   top: 0;
   left: 0;
-}
+} */
 
 .item:hover .deleteNote {
   display: block;

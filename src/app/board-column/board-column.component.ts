@@ -4,6 +4,8 @@ import { DragndropService, Toggle } from '../dragndrop.service';
 import { BoardState } from '../store/reducers/board.reducer';
 import { Store } from '@ngrx/store';
 import { boardActions, cardActions } from '../store/actions';
+import { AppState } from '../store';
+import { CardsState } from '../store/reducers/card.reducer';
 
 @Component({
   selector: 'app-board-column',
@@ -14,16 +16,21 @@ import { boardActions, cardActions } from '../store/actions';
 export class BoardColumnComponent implements OnInit {
   @Input() column: Column;
 
-  constructor(private dndService: DragndropService, private store: Store<BoardState>) {}
+  constructor(private dndService: DragndropService, private store: Store<CardsState>) {}
 
   ngOnInit() {}
 
-  addDroppedNote(note: Card) {
-    this.column.cards = [...this.column.cards, note];
+  addCard($event) {
+    // TODO
+  }
+
+  deleteCard(card) {
+    // TODO
+    this.store.dispatch(new cardActions.DeleteCard(card));
+    this.column.cards = this.column.cards.filter(_card => _card._id !== card._id);
   }
 
   dragStart(event) {
-    console.log(this, this.column.cards);    
     this.dndService.setSource({ dragged: event.target, source: this });
 
     const placeholder = document.querySelector('.item.placeholder');
@@ -83,7 +90,10 @@ export class BoardColumnComponent implements OnInit {
     source.column.cards = source.column.cards.filter(note => note !== draggedNote);
     target.column.cards = [...target.column.cards, draggedNote];
 
-    target.column.cards.find(note => note._id === dragged.id).order = [...cardsContainer.children as any].indexOf(dragged);
+    target.column.cards.find(note => note._id === dragged.id).order = [...(cardsContainer.children as any)].indexOf(
+      dragged
+    );
+    draggedNote.columnId = target.column._id;
 
     this.store.dispatch(new cardActions.UpdateCard(draggedNote));
   }

@@ -1,4 +1,4 @@
-import * as fromReducers from './notes.reducer';
+import * as fromReducers from './card.reducer';
 import * as fromActions from '../actions/card.action';
 import { Card } from '../../models';
 

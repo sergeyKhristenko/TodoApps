@@ -1,7 +1,7 @@
 <div class="column">
     <div class="cards__header">
-      <div class="column__title">{{'Column 1 title' | uppercase }}</div>
-      <div class="addBtn">
+      <div class="column__title">{{column.name | uppercase}}</div>
+      <div class="addBtn" (click)="addCard($event)">
           <svg width="24" height="24" viewBox="0 0 24 24">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -10,7 +10,7 @@
     </div>
     <div class="cards" (dragenter)="dragEnter($event)" (dragend)="dragEnd($event)">
       <div *ngFor="let card of column.cards, let i = index" id="{{card._id}}" class="item" draggable="true" (dragstart)="dragStart($event)" [style.background-color]="card.color">
-        <span class="deleteNote" (click)="deleteNote(card)">&#10006;</span>
+        <span class="deleteNote" (click)="deleteCard(card)">&#10006;</span>
         <div class="item-title">{{card.title}}</div>
         <div class="item-text">{{card.text}}</div>
       </div>

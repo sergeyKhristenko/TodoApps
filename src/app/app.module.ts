@@ -13,7 +13,7 @@ import { NoteItemComponent } from './note-item/note-item.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store';
-import * as fromReducers from './store/reducers/notes.reducer';
+import * as fromReducers from './store/reducers/card.reducer';
 import * as fromActions from './store/actions/card.action';
 import { CardsEffects } from './store/effects/cardsEffects';
 import { LoginComponent } from './login/login.component';
