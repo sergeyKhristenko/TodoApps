@@ -1,11 +1,10 @@
-import { Component, OnInit, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Card, Column } from '../models';
 import { DragndropService, Toggle } from '../dragndrop.service';
 import { BoardState } from '../store/reducers/board.reducer';
 import { Store } from '@ngrx/store';
-import { boardActions, cardActions } from '../store/actions';
+import { boardActions } from '../store/actions';
 import { AppState } from '../store';
-import { CardsState } from '../store/reducers/card.reducer';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
@@ -19,38 +18,45 @@ export class BoardColumnComponent implements OnInit {
   action = {
     create: 'create',
     edit: 'edit'
-  }
+  };
 
-  constructor(private dndService: DragndropService, private store: Store<CardsState>, public ngxSmartModalService: NgxSmartModalService) {}
+  constructor(
+    private dndService: DragndropService,
+    private store: Store<AppState>,
+    public ngxSmartModalService: NgxSmartModalService
+  ) {}
 
-  ngOnInit() {
-  }
-  
+  ngOnInit() {}
+
   onEditEvent(card) {
-    this.store.dispatch(new cardActions.UpdateCard(card));
+    this.ngxSmartModalService.getModal('editModal').close();
+    this.ngxSmartModalService.resetModalData('editModal');
+    this.store.dispatch(new boardActions.UpdateCard(card));
   }
 
   onAddEvent(card) {
-    this.store.dispatch(new cardActions.CreateCard(card));
+    this.ngxSmartModalService.getModal('addModal').close();
+    this.ngxSmartModalService.resetModalData('addModal');
+    this.store.dispatch(new boardActions.CreateCard(card));
   }
 
   addCard() {
     const emptyCard = {
       columnId: this.column._id
-    }
+    };
 
-    this.ngxSmartModalService.setModalData(emptyCard, 'addModal')
+    this.ngxSmartModalService.setModalData(emptyCard, 'addModal');
     this.ngxSmartModalService.getModal('addModal').open();
   }
 
   editCard(card) {
-    this.ngxSmartModalService.setModalData(card, 'editModal')
+    this.ngxSmartModalService.setModalData(card, 'editModal');
     this.ngxSmartModalService.getModal('editModal').open();
   }
 
   deleteCard(card) {
     // TODO
-    this.store.dispatch(new cardActions.DeleteCard(card));
+    this.store.dispatch(new boardActions.DeleteCard(card));
     this.column.cards = this.column.cards.filter(_card => _card._id !== card._id);
   }
 
@@ -106,19 +112,24 @@ export class BoardColumnComponent implements OnInit {
     this.dndService.toggleDragged(Toggle.show);
     this.dndService.togglePlaceholder(Toggle.hide);
 
-    const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
-    cardsContainer.insertBefore(dragged, document.querySelector('.item.placeholder'));
-
     const draggedNote = source.column.cards.find(note => note._id === dragged.id);
+    const draggedNoteIdx = source.column.cards.findIndex(card => card._id === draggedNote._id);
 
-    source.column.cards = source.column.cards.filter(note => note !== draggedNote);
-    target.column.cards = [...target.column.cards, draggedNote];
+    if (target === source) {
+      const cardsContainer = document.querySelector('.item.placeholder').closest('.cards');
+      cardsContainer.insertBefore(dragged, document.querySelector('.item.placeholder'));
 
-    target.column.cards.find(note => note._id === dragged.id).order = [...(cardsContainer.children as any)].indexOf(
-      dragged
-    );
+      const newIdx = [...(cardsContainer.children as any)].findIndex(el => el === dragged);
+      source.column.cards = source.column.cards.filter(note => note !== draggedNote);
+      target.column.cards.splice(newIdx, 0, draggedNote);
+    } else {
+      source.column.cards = source.column.cards.filter(note => note !== draggedNote);
+      target.column.cards.splice(draggedNoteIdx, 0, draggedNote);
+    }
+
+    draggedNote.order = target.column.cards.findIndex(card => card._id === dragged.id);
     draggedNote.columnId = target.column._id;
 
-    this.store.dispatch(new cardActions.UpdateCard(draggedNote));
+    this.store.dispatch(new boardActions.UpdateCard(draggedNote));
   }
 }

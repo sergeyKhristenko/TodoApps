@@ -7,14 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NotesEditorComponent } from './notes-editor/notes-editor.component';
 import { ColorPickerComponent } from './color-picker/color-picker.component';
-import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteItemComponent } from './note-item/note-item.component';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store';
-import * as fromReducers from './store/reducers/card.reducer';
-import * as fromActions from './store/actions/card.action';
 import { CardsEffects } from './store/effects/cardsEffects';
 import { LoginComponent } from './login/login.component';
 import { UserEffects } from './store/effects/userEffects';
@@ -31,12 +28,6 @@ const appRoutes: Routes = [
   {
     path: 'notes',
     component: NotesEditorComponent,
-    children: [
-      {
-        path: '',
-        component: NotesListComponent
-      }
-    ],
     canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: 'board' }
@@ -47,7 +38,6 @@ const appRoutes: Routes = [
     AppComponent,
     NotesEditorComponent,
     ColorPickerComponent,
-    NotesListComponent,
     NoteItemComponent,
     LoginComponent,
     BoardComponent,

@@ -1,5 +1,6 @@
 import { Board } from '../../models';
 import * as fromBoardActions from '../actions/board.action';
+import { boardActions } from '../actions';
 
 export interface BoardState {
   allBoards: Board[];
@@ -133,6 +134,91 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
       return {
         ...state,
         currentBoard: action.payload,
+        loading: false,
+        loaded: true
+      };
+    }
+    // Create cards
+    case fromBoardActions.CREATE_CARD: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
+    case fromBoardActions.CREATE_CARD_SUCCESS: {
+      const columnToUpdateIdx = state.currentBoard.columns.findIndex(column => column._id === action.payload.columnId);
+      const updatedColumns = [...state.currentBoard.columns];
+      updatedColumns[columnToUpdateIdx].cards.push(action.payload);
+
+      return {
+        ...state,
+        currentBoard: { ...state.currentBoard, columns: updatedColumns },
+        loading: false,
+        loaded: true
+      };
+    }
+    case fromBoardActions.CREATE_CARD_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
+    // Delete Cards
+    case fromBoardActions.DELETE_CARD: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
+    case fromBoardActions.DELETE_CARD_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
+    case fromBoardActions.DELETE_CARD_SUCCESS: {
+      const columnToUpdateIdx = state.currentBoard.columns.findIndex(column => column._id === action.payload.columnId);
+      const updatedColumns = [...state.currentBoard.columns];
+      
+      updatedColumns[columnToUpdateIdx].cards = updatedColumns[columnToUpdateIdx].cards.filter(card => card._id !== action.payload._id);
+
+      return {
+        ...state,
+        currentBoard: { ...state.currentBoard, columns: updatedColumns },
+        loading: false,
+        loaded: true
+      };
+    }
+    // Update card
+    case boardActions.UPDATE_CARD: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
+    case boardActions.UPDATE_CARD_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
+    case boardActions.UPDATE_CARD_SUCCESS: {
+      const columnToUpdateIdx = state.currentBoard.columns.findIndex(column => column._id === action.payload.columnId);
+      const updatedColumns = [...state.currentBoard.columns];
+      const cardToUpdateIdx = updatedColumns[columnToUpdateIdx].cards.findIndex(
+        card => card._id === action.payload._id
+      );
+      updatedColumns[columnToUpdateIdx].cards[cardToUpdateIdx] = action.payload;
+
+      return {
+        ...state,
+        currentBoard: { ...state.currentBoard, columns: updatedColumns },
         loading: false,
         loaded: true
       };

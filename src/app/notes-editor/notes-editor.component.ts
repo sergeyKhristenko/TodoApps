@@ -7,11 +7,12 @@ import {
   AfterContentInit,
   OnChanges,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef,
+  AfterViewChecked
 } from '@angular/core';
 import { Card } from '../models';
 import { Store } from '@ngrx/store';
-import * as fromActions from '../store/actions/card.action';
 
 import { AppState } from '../store';
 import { NgxSmartModalService } from 'ngx-smart-modal';
@@ -36,13 +37,14 @@ export class NotesEditorComponent implements AfterViewInit {
   color = this.DEFAULT_COLOR;
   columnId = '';
 
-  constructor(private store: Store<AppState>, public ngxSmartModalService: NgxSmartModalService) {}
+  constructor(private store: Store<AppState>, public ngxSmartModalService: NgxSmartModalService, private cdRef:ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     this.noteTitle = this.card ? this.card.title : this.DEFAULT_TITLE;
     this.color = this.card ? this.card.color : this.DEFAULT_COLOR;
     this.noteText = this.card ? this.card.text : this.DEFAULT_TEXT;
     this.columnId = this.card ? this.card.columnId : this.columnId;
+    this.cdRef.detectChanges();
   }
 
   addNewTodo() {
@@ -53,8 +55,6 @@ export class NotesEditorComponent implements AfterViewInit {
       columnId: this.card.columnId,
       _id: this.card._id
     };
-
-    console.log(this.action)
 
     if (this.action === 'create') {
       this.cardAdded.emit(_card);

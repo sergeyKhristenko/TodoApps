@@ -12,8 +12,12 @@ export class BoardService {
   readonly apiURL = environment.apiURL;
   readonly httpOptions = {
     // TODO this is mock tocken. Need to add real tokens
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: 'Bearer 5b168f2353e5f9707332fbc5' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: `Bearer ${this.getToken()}` })
   };
+
+  private getToken() {
+    return localStorage.getItem('token');
+  }
 
   getBoards(): Observable<any> {
     return this.http.get(`${this.apiURL}/boards`, this.httpOptions);

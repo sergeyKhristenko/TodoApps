@@ -50,6 +50,22 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ]
+            },
+            "gcloud": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.gcloud.ts"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
             }
           }
         },
@@ -64,6 +80,12 @@
             },
             "dev": {
               "browserTarget": "todo:build:dev"
+            },
+            "gcloud": {
+              "browserTarget": "todo:build:gcloud"
+            },
+            "qa": {
+              "browserTarget": "todo:build:qa"
             }
           }
         },

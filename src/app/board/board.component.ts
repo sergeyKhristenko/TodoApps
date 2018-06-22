@@ -29,8 +29,8 @@ export class BoardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.$destroyed))
       .subscribe(state => (this.columns = state.currentBoard.columns));
 
-    // TODO replace mock id
-    this.store.dispatch(new fromActions.LoadBoard({ _id: '5b238e9db31522204298fb94' }));
+    // TODO replace board mock id
+    this.store.dispatch(new fromActions.LoadBoard({ _id: '5b28f213edb0f3001027d30f' }));
   }
 
   ngOnDestroy() {

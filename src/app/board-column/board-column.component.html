@@ -17,7 +17,7 @@
       </div>
     </div>
 
-  <ngx-smart-modal #editModal identifier="editModal" (onClose)="addModalClosed()">
+  <ngx-smart-modal #editModal identifier="editModal">
     <app-notes-editor *ngIf="editModal.hasData()" [card]='editModal.getData()' [action]="action.edit" (cardEdited)="onEditEvent($event)"></app-notes-editor>
   </ngx-smart-modal>
 

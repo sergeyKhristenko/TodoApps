@@ -3,7 +3,7 @@ import { Card } from '../models';
 import { CardService } from '../card.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store';
-import { cardActions } from '../store/actions';
+import { boardActions } from '../store/actions';
 
 @Component({
   selector: 'app-note-item',
@@ -17,7 +17,7 @@ export class NoteItemComponent {
   constructor(private store: Store<AppState>) {}
 
   deleteNote(note) {
-    this.store.dispatch(new cardActions.DeleteCard(note));
+    this.store.dispatch(new boardActions.DeleteCard(note));
   }
 
   dragStart(event) {

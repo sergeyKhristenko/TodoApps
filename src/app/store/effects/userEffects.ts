@@ -5,7 +5,6 @@ import * as UserActions from '../actions/user.action';
 import { Observable, of } from 'rxjs';
 import { mergeMap, map, catchError, switchMap, tap } from 'rxjs/operators';
 import { UserService } from '../../user.service';
-import * as fromNotesActions from '../actions/card.action';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
