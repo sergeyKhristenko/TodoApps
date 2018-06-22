@@ -18,6 +18,10 @@
     "json-server:start": "pm2 start ./mockServer.js",
     "json-server:stop": "pm2 stop all"
   },
+  "engines": {
+    "node": "6.11.0",
+    "npm": "3.10.10"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "6.0.3",
