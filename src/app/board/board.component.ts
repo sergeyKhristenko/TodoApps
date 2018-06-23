@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, first } from 'rxjs/operators';
 
 import * as fromStore from '../store';
 import * as fromActions from '../store/actions/board.action';
 import { AppState } from '../store';
-import { Card, Board, Column } from '../models';
+import { Card, Board, Column, User } from '../models';
 import { Subject, Subscription } from 'rxjs';
-import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-board',
@@ -19,6 +18,8 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 export class BoardComponent implements OnInit, OnDestroy {
   notes: Card[];
   columns: Column[];
+  userEmail: string = localStorage.getItem('email') || '';
+
   private $destroyed: Subject<any> = new Subject();
 
   constructor(private store: Store<fromStore.AppState>) {}
@@ -27,14 +28,22 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.store
       .select((appState: AppState) => appState.board)
       .pipe(takeUntil(this.$destroyed))
-      .subscribe(state => (this.columns = state.currentBoard.columns));
+      .subscribe(state => {
+        this.columns = state.currentBoard.columns;
+      });
 
-    // TODO replace board mock id
-    this.store.dispatch(new fromActions.LoadBoard({ _id: '5b2ce9e14ab0432a2d975006' }));
+    this.store
+      .select((appState: AppState) => appState.board.allBoards)
+      .pipe(first(allBoards => !!allBoards[0]))
+      .subscribe(allBoards => {
+        this.store.dispatch(new fromActions.LoadBoard({ _id: allBoards[0]._id }));
+      });
+
+    // TODO assuming each user has only one board
+    this.store.dispatch(new fromActions.LoadBoards());
   }
 
   ngOnDestroy() {
     this.$destroyed.next();
   }
-
 }

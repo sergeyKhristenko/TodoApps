@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="userContainer">
+    <div class="userEmail">User: {{userEmail}}</div>
+  </div>
   <app-board-column *ngFor='let column of columns' [column]="column"></app-board-column>
   <div class="item placeholder"></div>
 </div>

@@ -10,17 +10,15 @@ import { Column, Board } from './models';
 export class BoardService {
   constructor(private http: HttpClient) {}
   readonly apiURL = environment.apiURL;
-  readonly httpOptions = {
-    // TODO this is mock tocken. Need to add real tokens
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: `Bearer ${this.getToken()}` })
+  private headers = () => {
+    return {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    };
   };
 
-  private getToken() {
-    return localStorage.getItem('token');
-  }
-
   getBoards(): Observable<any> {
-    return this.http.get(`${this.apiURL}/boards`, this.httpOptions);
+    return this.http.get(`${this.apiURL}/boards`, { headers: this.headers() });
   }
 
   getBoard(board: Board): Observable<any> {
@@ -28,14 +26,14 @@ export class BoardService {
   }
 
   createBoard(board: Board): Observable<any> {
-    return this.http.post(`${this.apiURL}/boards`, board, this.httpOptions);
+    return this.http.post(`${this.apiURL}/boards`, board, { headers: this.headers() });
   }
 
   updateBoard(board: Board): Observable<any> {
-    return this.http.put(`${this.apiURL}/boards/${board._id}`, board, this.httpOptions);
+    return this.http.put(`${this.apiURL}/boards/${board._id}`, board, { headers: this.headers() });
   }
 
   updateColumn(column: Column): Observable<any> {
-    return this.http.put(`${this.apiURL}/columns/${column._id}`, column, this.httpOptions);
+    return this.http.put(`${this.apiURL}/columns/${column._id}`, column, { headers: this.headers() });
   }
 }

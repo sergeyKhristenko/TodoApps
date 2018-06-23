@@ -51,11 +51,11 @@
                 }
               ]
             },
-            "gcloud": {
+            "heroku": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.gcloud.ts"
+                  "with": "src/environments/environment.heroku.ts"
                 }
               ]
             },
@@ -81,8 +81,8 @@
             "dev": {
               "browserTarget": "todo:build:dev"
             },
-            "gcloud": {
-              "browserTarget": "todo:build:gcloud"
+            "heroku": {
+              "browserTarget": "todo:build:heroku"
             },
             "qa": {
               "browserTarget": "todo:build:qa"

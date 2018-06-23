@@ -33,7 +33,7 @@ export function reducer(state = initialState, action: fromBoardActions.BoardActi
     case fromBoardActions.LOAD_BOARDS_SUCCESS: {
       return {
         ...state,
-        data: [...action.payload],
+        allBoards: [...action.payload],
         loading: false,
         loaded: true
       };

@@ -6,99 +6,11 @@
   flex-wrap: wrap;
 }
 
-/* 
-.column {
-  width: 40%;
-  height: 100%;
-  margin: 10px;
-  background: rgb(0, 0, 0, 0.1);
-}
-
-.cards__header {
-  padding: 5px;
-  text-indent: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid white;
-}
-
-.addBtn {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  outline: none;
-}
-
-.addBtn svg {
-  fill: #494ba2
-}
-
-.addBtn svg:active {
-  fill: white
-}
-
-.column__title {
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande',
-    sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.cards {
-  padding: 5px;
-  min-height: 15px;
-}
-
-.item {
-  border-radius: 3px;
+.userContainer {
   width: 100%;
-  position: relative;
-  margin-bottom: 5px;
-  padding: 5px;
+  padding-right: 10px;
 }
 
-.item:hover::after {
-  cursor: pointer;
-  position: absolute;
-  content: "";
-  background: rgb(0, 0, 0, 0.07);
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
+.userEmail {
+  float: right;
 }
-
-.item:hover .deleteNote {
-  display: block;
-}
-
-.item-text {
-  border-top: 1px solid rgba(128, 21, 21, 0.8);
-  padding-top: 5px;
-  cursor: text;
-}
-
-.deleteNote {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  color: red;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  line-height: 1.5;
-  outline: none;
-}
-
-.deleteNote:active {
-  color: black;
-}
-
-.placeholder {
-  display: none;
-  background: gray;
-} */

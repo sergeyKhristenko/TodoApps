@@ -1,6 +1,6 @@
 import { Card, User } from '../../models';
 import * as fromUserActions from '../actions/user.action';
-import {AppState} from './';
+import { AppState } from './';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface UserState {
@@ -25,24 +25,22 @@ export function reducer(state = initialState, action: fromUserActions.NotesActio
     case fromUserActions.LOGIN_USER: {
       return {
         ...state
-      }
+      };
     }
     case fromUserActions.LOGIN_USER_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
-        user: {
-          token: action.payload
-        },
+        user: { ...action.payload },
         errorMessage: null
-      }
+      };
     }
     case fromUserActions.LOGIN_USER_FAIL: {
       return {
         isAuthenticated: false,
         errorMessage: action.payload,
         user: null
-      }
+      };
     }
     default:
       return state;

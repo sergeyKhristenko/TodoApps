@@ -9,7 +9,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions: Actions, private route: ActivatedRoute, private userService: UserService, private router: Router) {}
+  constructor(
+    private actions: Actions,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   @Effect()
   loginUser = this.actions.pipe(
@@ -18,7 +23,10 @@ export class UserEffects {
     switchMap(userCreds => {
       return this.userService.login(userCreds).pipe(
         map(user => {
-          return new UserActions.LoginUserSuccess({ token: user.token });
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('email', user.email);
+
+          return new UserActions.LoginUserSuccess(user);
         }),
         catchError(error => {
           return of(new UserActions.LoginUserFail(error));
@@ -30,10 +38,8 @@ export class UserEffects {
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(UserActions.LOGIN_USER_SUCCESS),
-    tap(user => {
-      localStorage.setItem('token', user.payload.token);
+    map(_ => {
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      
       this.router.navigateByUrl(returnUrl);
     })
   );
